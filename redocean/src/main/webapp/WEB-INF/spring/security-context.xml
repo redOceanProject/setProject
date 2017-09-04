@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<http auto-config="true">
+	<intercept-url pattern="/boardList" access="hasRole('ROLE_ADMIN')" />
+	<intercept-url pattern="/boardWrite" access="hasRole('ROLE_USER')" />
+ 	<intercept-url pattern="/join" access="permitAll" />
+ 	<intercept-url pattern="/" access="permitAll" />
+ 		
+	<form-login
+		username-parameter="custid"
+		password-parameter="password"
+		login-page="/login"
+		default-target-url="/join"
+		authentication-failure-url="/" />
+	
+	<session-management >
+		<concurrency-control max-sessions="1"  error-if-maximum-exceeded="true" expired-url="/" />
+	</session-management>
+</http>
+<!-- error-if-maximum-exceeded="true" 없으면 첫번째 로그인이 무시, 있으면 두번째 로그인이 무시 -->
+
+<authentication-manager>
+	<authentication-provider>
+		<user-service>
+			<user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER"/>
+		</user-service>
+	</authentication-provider>
+</authentication-manager>
+
+</beans:beans>
