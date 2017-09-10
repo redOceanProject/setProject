@@ -47,4 +47,10 @@ public class HomeController {
 		
 		return "blog";
 	}
+	
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public String index() {
+		
+		return "index";
+	}
 }
