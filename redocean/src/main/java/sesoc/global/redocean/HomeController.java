@@ -1,21 +1,28 @@
 package sesoc.global.redocean;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import sesoc.global.redocean.dao.BoardDao;
+import sesoc.global.redocean.vo.Mainboard;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	@Autowired
+	SqlSession sqlsession;
+	BoardDao mapper;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -24,33 +31,23 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
 	}
-	
-	@RequestMapping(value = "about", method = RequestMethod.GET)
-	public String about() {
+	@ResponseBody
+	@RequestMapping(value = "check" 
+	, produces = "application/json;charset=UTF-8")
+	public String check( String prefer) {
+		System.out.println(prefer);
+		mapper = sqlsession.getMapper(BoardDao.class);
+		Mainboard recent = mapper.selectlist();
+		String present = recent.getTitle();
+		if (present.equals(prefer)) {
+			return prefer;
+		}else {
+			return present;
+		}
 		
-		return "about";
 	}
 	
-	@RequestMapping(value = "blog", method = RequestMethod.GET)
-	public String blog() {
-		
-		return "blog";
-	}
-	
-	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index() {
-		
-		return "index";
-	}
 }

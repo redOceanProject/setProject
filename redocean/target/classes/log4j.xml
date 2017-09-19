@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="global.sesoc.redocean">
+	<logger name="sesoc.global.test">
 		<level value="info" />
 	</logger>
 	

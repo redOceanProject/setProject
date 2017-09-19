@@ -5,12 +5,16 @@
 
 <configuration>
 	<typeAliases>
-		<!-- <typeAlias type="sesoc.global.test.vo.Customer" alias="Customer"/>
-		<typeAlias type="sesoc.global.test.vo.Board"    alias="Board"/> -->
+		<typeAlias type="sesoc.global.redocean.vo.Bdcard" alias="bdcard"/>
+		<typeAlias type="sesoc.global.redocean.vo.Mainboard"    alias="mainboard"/>
+		<typeAlias type="sesoc.global.redocean.vo.Member"    alias="member"/>
+		<typeAlias type="sesoc.global.redocean.vo.Reply"    alias="reply"/>
+		
 	</typeAliases>
 	
 	<mappers>
-		<!-- <mapper resource="customerMapper.xml" />
-		<mapper resource="boardMapper.xml" /> -->
+		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/bloodMapper.xml" />
+		<mapper resource="mapper/boardMapper.xml" />
 	</mappers>
 </configuration>

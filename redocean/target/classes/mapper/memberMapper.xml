@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="sesoc.global.redocean.dao.MemberDao">
+
+	<insert id="insert" parameterType="member">
+		INSERT INTO member values(
+			#{email}
+			, #{password}
+			, #{name}
+			, '0'
+		)
+	</insert>
+	<select id="select" parameterType="string" resultType="member">
+		
+		SELECT * FROM member WHERE email = #{email}
+
+	</select>
+	
+	<select id="seletBdlist" parameterType="string" resultType="bdcard">
+		SELECT * FROM bdcard WHERE email = #{email} ORDER BY bddate DESC
+	
+	</select>
+	
+<!--	<update id="update" parameterType="member">
+		UPDATE customer
+		SET
+		name= #{name}
+		, email= #{email}
+		, division = #{division}
+		, idNo = #{idNo}
+		, address = #{address}
+		<if test="password !=null and password != ''">
+		, password = #{password}
+		</if>
+		WHERE
+		custid = #{custid}
+	</update>
+ -->
+</mapper>

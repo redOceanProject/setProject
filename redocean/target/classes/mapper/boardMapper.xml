@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판 정보 처리 SQL -->
+<mapper namespace="sesoc.global.redocean.dao.BoardDao">
+
+	<select id="select" resultType="mainboard" parameterType="map">
+		SELECT
+		boardnum
+		, email
+		, name
+		, title
+		, content
+		, to_char(inputdate, 'YYYY-MM-DD') inputdate
+		, goal_date
+		, hits
+		, originalfile
+		, savedfile
+		, sickName
+		, status
+		, goal_blood
+		, blood_present
+		FROM mainboard
+		WHERE
+		<choose>
+			<when test="searchtype == 'title'">title</when>
+			<when test="searchtype == 'content'">content</when>
+			<when test="searchtype == 'custid'">email</when>
+		</choose>
+		LIKE '%'|| #{searchword} || '%'
+		ORDER BY boardnum DESC
+	</select>
+
+	<!-- 전체 글 개수 -->
+	<select id="getBoardCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM mainboard
+		WHERE
+		<choose>
+			<when test="searchtype == 'title'">title</when>
+			<when test="searchtype == 'content'">content</when>
+			<when test="searchtype == 'email'">email</when>
+		</choose>
+		LIKE '%'|| #{searchword} || '%'
+	</select>
+	<!-- 글 하나 선택 -->
+	<select id="selectOne" parameterType="int" resultType="mainboard">
+		SELECT *
+		FROM mainboard
+		WHERE boardnum = #{boardnum}
+	</select>
+
+	<!-- 조회수 늘리기 -->
+	<update id="hitCount" parameterType="int">
+		UPDATE mainboard
+		SET
+		hits = hits+1
+		WHERE boardnum = #{boardnum}
+	</update>
+
+	<!-- 게시글 업데이트 -->
+	<update id="update" parameterType="mainboard">
+		UPDATE mainboard
+		SET
+		title = #{title}
+		, content = #{content}
+		, inputdate = sysdate
+
+		<if test="originalfile != null">
+			, originalfile = #{originalfile}
+			, savedfile = #{savedfile}
+		</if>
+		<if test="originalfile == null">
+			, originalfile = null
+			, savedfile = null
+		</if>
+
+		WHERE boardnum = #{boardnum}
+	</update>
+
+
+	<!-- 게시글 지우기 -->
+	<update id="delete" parameterType="int">
+		UPDATE mainboard
+		SET
+		status = 2
+		WHERE boardnum = #{boardnum}
+	</update>
+	
+	
+	<!-- 알림용 -->
+	<select id="selectone" resultType="mainboard">
+		SELECT mainboard
+		FROM mainbord
+		WHERE rownum = 1
+		ORDER BY inputdate DESC
+	</select>
+
+	<!-- 게시글 목표달성-->
+	<update id="change" parameterType="int">
+		UPDATE mainboard
+		SET
+		status = 1
+		WHERE boardnum = #{boardnum}
+	</update>
+	
+
+</mapper>

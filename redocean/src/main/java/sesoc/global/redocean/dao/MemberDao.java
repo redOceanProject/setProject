@@ -1,5 +1,14 @@
 package sesoc.global.redocean.dao;
 
-public class MemberDao {
 
+import sesoc.global.redocean.vo.Member;
+
+public interface MemberDao {
+	//유저 가입
+	public int insert(Member m);
+	//유저 선택
+	public Member select(String email);
+
+	
+	
 }
