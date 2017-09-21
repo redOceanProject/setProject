@@ -1,7 +1,6 @@
 package sesoc.global.redocean;
 
 
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sesoc.global.redocean.dao.MemberDao;
@@ -49,12 +47,12 @@ public class MemberController {
 	}
 	
 
-	@RequestMapping(value = "loginform")
+	@RequestMapping(value = "login")
 	public String login() {
-		return "loginform";
+		return "Member/login";
 	}
 
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "login", method=RequestMethod.POST)
 	public String login(
 			String email
 			, String password
@@ -79,18 +77,13 @@ public class MemberController {
 			return "redirect:/";
 
 		}
-		return "redirect:loginform";
+		return "redirect:login";
 	}
 
 	@RequestMapping(value ="logout")
 	public String logout(HttpSession ss) {
 		ss.invalidate();
 		return "redirect:/";
-	}
-	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index() {
-		
-		return "index";
 	}
 	
 	

@@ -1,5 +1,6 @@
 package sesoc.global.redocean;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.apache.ibatis.session.SqlSession;
@@ -32,8 +33,18 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		return "home";
+		mapper = sqlsession.getMapper(BoardDao.class);
+		ArrayList<Mainboard> list = mapper.list();
+		model.addAttribute("list", list);
+		return "index";
 	}
+	
+	@RequestMapping(value = "index")
+	public String index() {
+		
+		return "redirect:/";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "check" 
 	, produces = "application/json;charset=UTF-8")

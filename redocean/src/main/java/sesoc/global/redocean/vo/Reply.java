@@ -3,17 +3,18 @@ package sesoc.global.redocean.vo;
 public class Reply {
 
 	int replynum;
-	String custid, text, inputdate; 
+	String email, text, inputdate; 
 	int boardnum;
 	
 	public Reply() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int replynum, String custid, String text, String inputdate, int boardnum) {
+	public Reply(int replynum, String email, String text, String inputdate, int boardnum) {
 		super();
 		this.replynum = replynum;
-		this.custid = custid;
+		this.email = email;
 		this.text = text;
 		this.inputdate = inputdate;
 		this.boardnum = boardnum;
@@ -27,12 +28,12 @@ public class Reply {
 		this.replynum = replynum;
 	}
 
-	public String getCustid() {
-		return custid;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCustid(String custid) {
-		this.custid = custid;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getText() {
@@ -61,9 +62,9 @@ public class Reply {
 
 	@Override
 	public String toString() {
-		return "Reply [replynum=" + replynum + ", custid=" + custid + ", text=" + text + ", inputdate=" + inputdate
+		return "Reply [replynum=" + replynum + ", email=" + email + ", text=" + text + ", inputdate=" + inputdate
 				+ ", boardnum=" + boardnum + "]";
 	}
-
+	
 	
 }

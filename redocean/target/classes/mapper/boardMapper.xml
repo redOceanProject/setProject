@@ -106,5 +106,51 @@
 		WHERE boardnum = #{boardnum}
 	</update>
 	
-
+	<!-- 전체 게시판 읽기  -->
+ 	<select id="list" resultType="mainboard">
+		select * from mainboard order by boardnum desc
+	</select>
+	
+	<!-- 사연작성하기 -->
+ 	<insert id="write" parameterType="mainboard">
+ 		insert into mainboard (boardnum,email,name,title,content,goal_date,goal_blood
+		<if test="originalfile != null">
+		, originalfile
+		, savedfile
+		</if>
+		)
+		values (
+		mainboardnum_seq.nextval
+		,#{email}
+		,#{name}
+		,#{title}
+		,#{content}
+		,#{goal_date}
+		,#{goal_blood}
+		<if test="originalfile != null">
+		, #{originalfile}
+		, #{savedfile}
+		</if>
+		)
+ 	</insert>
+	
+	<!-- 리플 작성하기 -->
+	<insert id="reply" parameterType="reply">
+		insert into reply(
+		  replynum,
+		  email,
+		  text,
+		  boardnum
+		) values(
+		  replynum_seq.nextval,
+		  #{email},
+		  #{text},
+		  #{boardnum}
+		)
+	</insert>
+	
+	<!-- 전체댓글 출력 -->
+	<select id="replylist" resultType="reply">
+		select * from reply where boardnum=#{boardnum} order by replynum desc
+	</select>
 </mapper>

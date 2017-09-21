@@ -3,18 +3,19 @@ package sesoc.global.redocean.vo;
 public class Mainboard {
 
 	int boardnum;
-	String email, name, title, content, inputdate;
+	String email, name, title, content, inputdate, goal_date;
 	int hits;
 	String originalfile, savedfile, sickName;
 	int status, goal_blood,blood_present;
 	
-	
 	public Mainboard() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Mainboard(int boardnum, String email, String name, String title, String content, String inputdate, int hits,
-			String originalfile, String savedfile, String sickName, int status, int goal_blood, int blood_present) {
+	public Mainboard(int boardnum, String email, String name, String title, String content, String inputdate,
+			String goal_date, int hits, String originalfile, String savedfile, String sickName, int status,
+			int goal_blood, int blood_present) {
 		super();
 		this.boardnum = boardnum;
 		this.email = email;
@@ -22,6 +23,7 @@ public class Mainboard {
 		this.title = title;
 		this.content = content;
 		this.inputdate = inputdate;
+		this.goal_date = goal_date;
 		this.hits = hits;
 		this.originalfile = originalfile;
 		this.savedfile = savedfile;
@@ -77,6 +79,14 @@ public class Mainboard {
 
 	public void setInputdate(String inputdate) {
 		this.inputdate = inputdate;
+	}
+
+	public String getGoal_date() {
+		return goal_date;
+	}
+
+	public void setGoal_date(String goal_date) {
+		this.goal_date = goal_date;
 	}
 
 	public int getHits() {
@@ -138,11 +148,11 @@ public class Mainboard {
 	@Override
 	public String toString() {
 		return "Mainboard [boardnum=" + boardnum + ", email=" + email + ", name=" + name + ", title=" + title
-				+ ", content=" + content + ", inputdate=" + inputdate + ", hits=" + hits + ", originalfile="
-				+ originalfile + ", savedfile=" + savedfile + ", sickName=" + sickName + ", status=" + status
-				+ ", goal_blood=" + goal_blood + ", blood_present=" + blood_present + "]";
+				+ ", content=" + content + ", inputdate=" + inputdate + ", goal_date=" + goal_date + ", hits=" + hits
+				+ ", originalfile=" + originalfile + ", savedfile=" + savedfile + ", sickName=" + sickName + ", status="
+				+ status + ", goal_blood=" + goal_blood + ", blood_present=" + blood_present + "]";
 	}
 	
 	
-
+	
 }

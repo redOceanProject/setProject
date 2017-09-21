@@ -1,12 +1,17 @@
 package sesoc.global.redocean;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.RowBounds;
@@ -14,16 +19,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sesoc.global.redocean.dao.BoardDao;
 import sesoc.global.redocean.util.PageNavigator;
 import sesoc.global.redocean.vo.Mainboard;
+import sesoc.global.redocean.vo.Reply;
 import sesoc.global.redocean.util.FileService;
 
 @Controller
@@ -31,10 +37,11 @@ public class BoardController {
 	@Autowired
 	SqlSession sqlsession;
 	BoardDao mapper;
-
-	final String uploadPath = "/boardfile";
+	
+	
+	final String uploadPath = "/mainboard_file";
 	//보드리스트
-	@RequestMapping("boardlist")
+	@RequestMapping("boardList")
 	public String boardlist(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchtype", defaultValue = "title") String searchtype,
 			@RequestParam(value = "searchword", defaultValue = "") String searchword, Model model) {
@@ -56,7 +63,7 @@ public class BoardController {
 		model.addAttribute("searchword", searchword);
 		model.addAttribute("searchtype", searchtype);
 
-		return "boardList";
+		return "Board/boardList";
 	}
 
 	@RequestMapping("/boardDetail")
@@ -69,6 +76,8 @@ public class BoardController {
 		Mainboard board = mapper.selectOne(boardnum);
 		// 히트수 증가
 		mapper.hitCount(boardnum);
+		//전체댓글 출력
+		ArrayList<Reply> replyList = mapper.replylist(boardnum);
 
 		// 글에 있는 세이브드 파일 판명
 
@@ -94,12 +103,13 @@ public class BoardController {
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
 		model.addAttribute("navi", navi);
+		model.addAttribute("replyList", replyList);
 
 		// 서치타입 및 워드 담기
 		model.addAttribute("searchtype", searchtype);
 		model.addAttribute("searchword", searchword);
 
-		return "";
+		return "Board/boardDetail";
 	}
 
 	/**
@@ -206,4 +216,97 @@ public class BoardController {
 		
 		return "change";
 	}
+	
+	//다운로드
+	@RequestMapping(value = "download", method = RequestMethod.GET)
+	public String fileDownload(
+			int boardnum
+			, Model model
+			, HttpServletResponse response
+			) {
+		BoardDao m = sqlsession.getMapper(BoardDao.class);
+		Mainboard board = m.selectOne(boardnum);
+			
+		//원래의 파일명
+		String originalfile = new String(board.getSavedfile());
+		//저장된 파일 경로
+		String fullPath = uploadPath + "/" + board.getSavedfile();
+
+		try {
+			response.setHeader("Content-Disposition", " attachment;filename="+ URLEncoder.encode(originalfile, "UTF-8"));			} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+			
+
+		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+		FileInputStream filein = null;
+		ServletOutputStream fileout = null;
+			
+		try {
+			filein = new FileInputStream(fullPath);
+			fileout = response.getOutputStream();
+				
+			//Spring의 파일 관련 유틸
+			FileCopyUtils.copy(filein, fileout);
+				
+			filein.close();
+			fileout.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	
+
+	//사연 작성폼으로 이동
+	@RequestMapping(value = "write")
+	public String write() {
+		return "Board/write";
+	}
+		
+		
+	//사연작성 DB처리
+	@RequestMapping(value = "write", method = RequestMethod.POST)
+	public String write(
+			Mainboard mainboard
+			, HttpSession session
+			, MultipartFile upload
+			) {
+		String str = mainboard.getContent().replaceAll("\r\n", "<br>");
+		mainboard.setContent(str);
+		String email = (String)session.getAttribute("email");
+		mainboard.setEmail(email);
+		String name = (String) session.getAttribute("name");
+		mainboard.setName(name);
+
+		String savedFilename = FileService.saveFile(upload, uploadPath);
+		mainboard.setOriginalfile(upload.getOriginalFilename());
+		mainboard.setSavedfile(savedFilename);
+		
+		BoardDao m = sqlsession.getMapper(BoardDao.class);
+		m.write(mainboard);
+
+		return "redirect:/";
+	}	
+	
+	//댁글 작성하기
+	@RequestMapping(value="reply")
+	public String reply(
+			HttpSession session,
+			Model model,
+			Reply reply
+			){
+		
+		String email = (String)session.getAttribute("loginEmail");
+		System.out.println(email);
+		reply.setEmail(email);
+		BoardDao board = sqlsession.getMapper(BoardDao.class);
+		board.reply(reply);
+		
+		return "Board/boardDetail";
+	}
+
+		
 }
