@@ -23,10 +23,12 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sesoc.global.redocean.dao.BoardDao;
+import sesoc.global.redocean.dao.ReplyDao;
 import sesoc.global.redocean.util.PageNavigator;
 import sesoc.global.redocean.vo.Mainboard;
 import sesoc.global.redocean.vo.Reply;
@@ -37,9 +39,10 @@ public class BoardController {
 	@Autowired
 	SqlSession sqlsession;
 	BoardDao mapper;
-	
+	ReplyDao replyMapper;
 	
 	final String uploadPath = "/mainboard_file";
+	
 	//보드리스트
 	@RequestMapping("boardList")
 	public String boardlist(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
@@ -76,8 +79,6 @@ public class BoardController {
 		Mainboard board = mapper.selectOne(boardnum);
 		// 히트수 증가
 		mapper.hitCount(boardnum);
-		//전체댓글 출력
-		ArrayList<Reply> replyList = mapper.replylist(boardnum);
 
 		// 글에 있는 세이브드 파일 판명
 
@@ -103,7 +104,7 @@ public class BoardController {
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
 		model.addAttribute("navi", navi);
-		model.addAttribute("replyList", replyList);
+		model.addAttribute("boardnum", boardnum);
 
 		// 서치타입 및 워드 담기
 		model.addAttribute("searchtype", searchtype);
@@ -120,13 +121,16 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("/boardUpdate")
-	public String boardUpdate(int boardnum, Model model) {
+	public String boardUpdate(int boardnum, Model model, Mainboard board) {
 		// session에서 아이디 꺼내는 작업 필요
+		
 		mapper = sqlsession.getMapper(BoardDao.class);
-		Mainboard board = mapper.selectOne(boardnum);
+		board = mapper.selectOne(boardnum);
+		String str = board.getContent().replaceAll("<br>", "\r\n");
+		board.setContent(str);
 		model.addAttribute("board", board);
 
-		return "board/boardUpdate";
+		return "Board/boardUpdate";
 	}
 
 	/**
@@ -140,6 +144,8 @@ public class BoardController {
 	public String boardUpdate(Mainboard board, MultipartFile upload, HttpSession session, RedirectAttributes rttr) {
 		// 수정할 글이 로그인한 본인 글인지 확인
 		// (만약 글보기에서 자신의 글이 아니더라도 수정버튼이 있다면 아래의 코드 필요)
+		String str = board.getContent().replaceAll("\r\n", "<br>");
+		board.setContent(str);
 		String email = (String) session.getAttribute("email");
 		mapper = sqlsession.getMapper(BoardDao.class);
 		Mainboard oldBoard = mapper.selectOne(board.getBoardnum());
@@ -185,12 +191,13 @@ public class BoardController {
 	public String boardDelete(int boardnum, Model model, HttpSession session) {
 		// 삭제할 글이 로그인한 본인 글인지 확인
 		String email = (String) session.getAttribute("email");
+		System.out.println(email);
 		mapper = sqlsession.getMapper(BoardDao.class);
 		// 삭제할 글 찾아옴
 		Mainboard oldBoard = mapper.selectOne(boardnum);
 		System.out.println(oldBoard);
 		if (oldBoard == null || !oldBoard.getEmail().equals(email)) {
-			return "redirect:boardList";
+			return "redirect:/";
 		}
 
 		String savedfile = oldBoard.getSavedfile();
@@ -201,7 +208,7 @@ public class BoardController {
 		}
 		mapper.delete(boardnum);
 
-		return "redirect:boardList";
+		return "redirect:/";
 	}
 	
 	
@@ -292,21 +299,28 @@ public class BoardController {
 	}	
 	
 	//댁글 작성하기
-	@RequestMapping(value="reply")
-	public String reply(
-			HttpSession session,
-			Model model,
-			Reply reply
-			){
-		
-		String email = (String)session.getAttribute("loginEmail");
-		System.out.println(email);
-		reply.setEmail(email);
-		BoardDao board = sqlsession.getMapper(BoardDao.class);
-		board.reply(reply);
-		
-		return "Board/boardDetail";
+	@ResponseBody
+	@RequestMapping(value="enroll", produces="application/json;charset=utf-8")
+	public void enroll(Reply reply){
+		System.out.println(reply);
+		replyMapper = sqlsession.getMapper(ReplyDao.class);
+		int i = replyMapper.insert(reply);
+		System.out.println(i);
 	}
+	
+	//댓글 출력
+	@RequestMapping(value="getreply")
+	public @ResponseBody ArrayList<Reply> getreply(
+			HttpSession ss
+			,int boardnum
+			){
+		System.out.println(boardnum);
+		replyMapper = sqlsession.getMapper(ReplyDao.class);
+		ArrayList<Reply> reply = replyMapper.selectAll(boardnum);
+		System.out.println(reply);
+		return reply;
+	}
+	
 
 		
 }

@@ -627,7 +627,7 @@ img{
 	padding:15px 15px !important;
 	line-height:30px;
 	font-size:16px;
-	font-weight:400;
+	font-weight:600;
 	min-height:0px;
 	background:none;
 	border:0px;
@@ -896,7 +896,7 @@ img{
 	position:relative;
 	float:right;
 	padding-left:0px;
-	padding-right:240px;
+	padding-right:0px;
 	background-color:inherit !important;
 }
 
@@ -908,7 +908,7 @@ img{
 }
 
 .header-type-one .nav-outer .main-menu .navigation > li > a{
-	font-weight:400;
+	font-weight:600;
 	padding:4px 12px 4px 0px;
 	color:#000000;
 	margin-right:0px;

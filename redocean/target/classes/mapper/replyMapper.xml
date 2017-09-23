@@ -6,16 +6,28 @@
 <!-- 리플 관련 SQL -->
 <mapper namespace="sesoc.global.redocean.dao.ReplyDao">
 	<!-- bdcard 리스트 -->
-	<select id="selectAll" resultType="reply">
+	<select id="selectAll" resultType="reply" parameterType="int">
 		SELECT * FROM reply
+		where boardnum = #{boardnum}
 		<!-- 전체 리플 가져오는데서 그침 뒤에 추가로 WHERE 절 넣어 변경해야 함 -->
 		ORDER BY inputdate DESC
 
 	</select>
 	
+	<!-- 댓글작성 -->
 	<insert id="insert" parameterType="reply">
-			insert into reply(replynum, email, text, boardnum) 
-			values(SEQ_reply_replynum.nextval, #{email}, #{text}, '3')
+			insert into reply(
+				replynum
+				,email
+				,text
+				,boardnum
+			) 
+			values(
+				replynum_seq.nextval
+				,#{email}
+				,#{text}
+				,#{boardnum}
+			)
 			<!-- inputdate 자동으로 넣게 설정 안되어 있음ㅋ -->
 	</insert>
 

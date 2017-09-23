@@ -12,7 +12,7 @@
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
-<!--<link href="css/color-themes/red-theme.css" rel="stylesheet">-->
+<link href="css/color-themes/red-theme.css" rel="stylesheet">
 
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -33,77 +33,47 @@
     <!-- Main Header--> 
     <header class="main-header header-type-one"> 
     
-    	<!--Header-Upper-->
+    	    	<!--Header-Upper-->
         <div class="header-upper">
         	<div class="auto-container">
             	<div class="clearfix">
                 	
                 	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index"><img src="images/logo.png" alt="" title=""></a></div>
+                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
                     </div>
                     
                     <div class="nav-outer clearfix">
                         <!-- Main Menu -->
                         <nav class="main-menu">
-                            <div class="navbar-header">
-                                <!-- Toggle Button -->    	
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-                            
+                        	
+                       		<div class="navbar-header"><!-- 반응형 -->
+                         	<!-- Toggle Button -->    	
+                    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        			<span class="icon-bar"></span>
+                            		<span class="icon-bar"></span>
+                            		<span class="icon-bar"></span>
+                       			</button>
+                    		</div>    
                             <div class="navbar-collapse collapse clearfix">
                                 <ul class="navigation clearfix">
-                                    <li><a href="#">Home</a></li>
-                                    <li class="dropdown"><a href="#">About</a>
-                                    	<ul>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="team.html">Our Team</a></li>
-                                            <li class="dropdown"><a href="#">Events</a>
-                                            </li>
-                                            <li><a href="gallery.html">Gallery</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="current dropdown"><a href="#">Causes</a>
-                                    </li>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li class="dropdown"><a href="#">Blog</a>
-                                    </li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                	<c:if test="${email == null}">
+                                    	<li><a href="login">로그인</a></li>
+                                	</c:if>
+                                	<c:if test="${email != null}">
+                                		<li><a href="logout">로그아웃</a></li>
+                                		<li><a href="#">마이페이지</a></li>
+                                    	<li><a href="write">사연 올리기</a></li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </nav>
-                        
-                        <!-- Main Menu End-->
-                        <div class="search-box-outer">
-                            <div>
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
-                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                    <li class="panel-outer">
-                                        <div class="form-container">
-                                            <form method="post" action="blog.html">
-                                                <div class="form-group">
-                                                    <input type="search" name="field-name" value="" placeholder="Search Here" required="">
-                                                    <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        
                 	</div>
-                    
                 </div>
             </div>
         </div>
         <!--End Header Upper-->
-        
-        <!--Sticky Header-->
+
+			 <!--Sticky Header-->
         <div class="sticky-header">
         	<div class="auto-container clearfix">
             	<!--Logo-->
@@ -115,27 +85,17 @@
                 <div class="right-col pull-right">
                 	<!-- Main Menu -->
                     <nav class="main-menu">
-                        <div class="navbar-header">
-                            <!-- Toggle Button -->    	
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
                         
                         <div class="navbar-collapse collapse clearfix">
 							<ul class="navigation clearfix">
-                                <li class="dropdown"><a href="#">Home</a>
-                                </li>
-                                <li class="dropdown"><a href="#">About</a>
-                                </li>
-                                <li class="current dropdown"><a href="#">Causes</a>
-                                </li>
-                                <li><a href="shop.html">Shop</a></li>
-                                <li class="dropdown"><a href="#">Blog</a>
-                                </li>
-                                <li><a href="contact.html">Contact us</a></li>
+                               <c:if test="${email == null}">
+                                    <li><a href="login">로그인</a></li>
+                                </c:if>
+                                <c:if test="${email != null}">
+                                	<li><a href="logout">로그아웃</a></li>
+                                	<li><a href="#">마이페이지</a></li>
+                                   	<li><a href="write">사연 올리기</a></li>
+                                </c:if>
                             </ul>
                         </div>
                     </nav><!-- Main Menu End-->
@@ -144,9 +104,9 @@
             </div>
         </div>
         <!--End Sticky Header-->
-    
-    </header>
-    <!--End Main Header -->
+
+		</header>
+		<!--End Main Header -->
     
     
     <!--Causes Section-->
@@ -173,7 +133,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="causes-info"><strong>Raised</strong> ${boardList.blood_present} / <span class="theme_color">${boardList.goal_blood}</span></div>
+                                <div class="causes-info"><strong>헌혈증</strong> ${boardList.blood_present} / <span class="theme_color">${boardList.goal_blood}</span>
+                                	&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${boardList.goal_date}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

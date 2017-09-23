@@ -7,8 +7,8 @@ import sesoc.global.redocean.vo.Reply;
 public interface ReplyDao {
 	
 	//리플 전체 선택
-	public ArrayList<Reply> selectAll();
+	public ArrayList<Reply> selectAll(int boardnum);
 	
 	//리플쓰기
-	public int insert(Reply re);
+	public int insert(Reply reply);
 }

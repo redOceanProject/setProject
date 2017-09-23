@@ -14,7 +14,7 @@
 		, title
 		, content
 		, to_char(inputdate, 'YYYY-MM-DD') inputdate
-		, goal_date
+		, to_char(goal_date, 'YYYY-MM-DD') goal_date
 		, hits
 		, originalfile
 		, savedfile
@@ -24,12 +24,13 @@
 		, blood_present
 		FROM mainboard
 		WHERE
-		<choose>
+		status = 0
+		<!-- <choose>
 			<when test="searchtype == 'title'">title</when>
 			<when test="searchtype == 'content'">content</when>
 			<when test="searchtype == 'custid'">email</when>
 		</choose>
-		LIKE '%'|| #{searchword} || '%'
+		LIKE '%'|| #{searchword} || '%' -->
 		ORDER BY boardnum DESC
 	</select>
 
@@ -47,7 +48,21 @@
 	</select>
 	<!-- 글 하나 선택 -->
 	<select id="selectOne" parameterType="int" resultType="mainboard">
-		SELECT *
+		SELECT
+		boardnum
+		, email
+		, name
+		, title
+		, content
+		, to_char(inputdate, 'YYYY-MM-DD') inputdate
+		, to_char(goal_date, 'YYYY-MM-DD') goal_date
+		, hits
+		, originalfile
+		, savedfile
+		, sickName
+		, status
+		, goal_blood
+		, blood_present
 		FROM mainboard
 		WHERE boardnum = #{boardnum}
 	</select>
@@ -108,7 +123,22 @@
 	
 	<!-- 전체 게시판 읽기  -->
  	<select id="list" resultType="mainboard">
-		select * from mainboard order by boardnum desc
+		select 
+		boardnum
+		, email
+		, name
+		, title
+		, content
+		, to_char(inputdate, 'YYYY-MM-DD') inputdate
+		, to_char(goal_date, 'YYYY-MM-DD') goal_date
+		, hits
+		, originalfile
+		, savedfile
+		, sickName
+		, status
+		, goal_blood
+		, blood_present
+		from mainboard where status = 0 order by boardnum desc
 	</select>
 	
 	<!-- 사연작성하기 -->
@@ -134,23 +164,4 @@
 		)
  	</insert>
 	
-	<!-- 리플 작성하기 -->
-	<insert id="reply" parameterType="reply">
-		insert into reply(
-		  replynum,
-		  email,
-		  text,
-		  boardnum
-		) values(
-		  replynum_seq.nextval,
-		  #{email},
-		  #{text},
-		  #{boardnum}
-		)
-	</insert>
-	
-	<!-- 전체댓글 출력 -->
-	<select id="replylist" resultType="reply">
-		select * from reply where boardnum=#{boardnum} order by replynum desc
-	</select>
 </mapper>

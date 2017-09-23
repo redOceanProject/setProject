@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
 <title>Huminity HTML Template | Cause Details</title>
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
@@ -13,7 +12,7 @@
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
-<!--<link href="css/color-themes/orange-theme.css" rel="stylesheet">-->
+<link href="css/color-themes/red-theme.css" rel="stylesheet">
 
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -24,32 +23,62 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
 <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
-
+<script src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function writeReply() {
-		
-		var text = $('#text').val();
-		
+	$(document).ready(function() {
+		listReply2(); // ** json 리턴방식
+
+		// ** 댓글 쓰기 버튼 클릭 이벤트 (ajax로 처리)
+		$("#btnReply").click(function() {
+			var email = $("#email").val();
+			var text = $("#text").val();
+			var boardnum = $("#boardnum").val();
+			$.ajax({
+				type : "post",
+				url : "enroll",
+				data : {email : email , text : text, boardnum : boardnum},
+				success : function() {
+					alert("댓글이 등록되었습니다.");
+					listReply2();
+				}
+			});
+		});
 	});
 
-	$.ajax({
-		url: ''
-		,type: 'post'
-		,data: {text : text}
-		,success: function () {
-			alter('댓글등록');
-		}
-		,error:	function(e){
-				alert('실패 : '+JSON.stringify(e));
-		}				
-		
-	});
 	
-	
-	
+	// RestController방식 (Json)
+	// **댓글 목록2 (json)
+	function listReply2(boadnum) {
+				alert(result);
+		$.ajax({
+			type : "post",
+			//contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
+			data: boardnum,
+			url : "getreply",
+			success : function(result) {
+				var output = "<div>";
+				for ( var i in result) {
+					output += "<div> ";
+					output += "<div> ";
+					output += "<div> ";
+					output += "<div> ";
+					output += "<div>";
+					output += "<strong>"+result[i]+email+"</strong>";
+					output += "<div>"+result[i]+inputdate+"</div>";
+					output += "</div>";
+					output += "<div>"+result[i]+text+"</div>";
+					output += "</div>";
+					output += "</div>";
+					output += "</div>";
+					output += "</div>";
+				}
+				output += "</div>";
+				$("#listReply").html(output);
+			}
+		});
+	}
 </script>
 </head>
-
 <body>
 <div class="page-wrapper">
 
@@ -59,103 +88,82 @@
 		<!-- Main Header-->
 		<header class="main-header header-type-one">
 
-			<!--Header-Upper-->
-			<div class="header-upper">
-				<!--메뉴 바 -->
-				<div class="auto-container">
-					<div class="clearfix">
+			    	<!--Header-Upper-->
+        <div class="header-upper">
+        	<div class="auto-container">
+            	<div class="clearfix">
+                	
+                	<div class="pull-left logo-outer">
+                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                    </div>
+                    
+                    <div class="nav-outer clearfix">
+                        <!-- Main Menu -->
+                        <nav class="main-menu">
+                        
+                    		<div class="navbar-header"><!-- 반응형 -->
+                    		<!-- Toggle Button -->    	
+                    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        			<span class="icon-bar"></span>
+                            		<span class="icon-bar"></span>
+                            		<span class="icon-bar"></span>
+                       			</button>
+                    		</div>
+                            
+                            <div class="navbar-collapse collapse clearfix">
+                                <ul class="navigation clearfix">
+                                	<c:if test="${email == null}">
+                                    	<li><a href="login">로그인</a></li>
+                                	</c:if>
+                                	<c:if test="${email != null}">
+                                		<li><a href="logout">로그아웃</a></li>
+                                		<li><a href="#">마이페이지</a></li>
+                                    	<li><a href="write">사연 올리기</a></li>
+                                    </c:if>
+                                </ul>
+                            </div>
+                        </nav>
+                	</div>
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
 
-						<div class="pull-left logo-outer">
-							<div class="logo">
-								<a href="index"><img src="images/logo.png" alt="" title=""></a>
-							</div>
-							<!--휴미니티 로고 -->
-						</div>
-
-						<div class="nav-outer clearfix">
-							<!--메인 메뉴 바  // 로고랑 메뉴랑 div로 좌우 나누어져 있다. -->
-							<!-- Main Menu -->
-							<nav class="main-menu">
-								<div class="navbar-header">
-									<!-- Toggle Button -->
-									<button type="button" class="navbar-toggle"
-										data-toggle="collapse" data-target=".navbar-collapse">
-										<span class="icon-bar"></span> <span class="icon-bar"></span>
-										<span class="icon-bar"></span>
-									</button>
-								</div>
-
-								<div class="navbar-collapse collapse clearfix">
-									<ul class="navigation clearfix">
-										<li class="dropdown"><a href="#">Home</a> <!-- Home--></li>
-										<li class="dropdown"><a href="#">About</a> <!--about -->
-										</li>
-										<li class="current dropdown"><a href="#">Causes</a> <!--causes -->
-										</li>
-										<li><a href="shop.html">Shop</a></li>
-										<!--shop -->
-										<li class="dropdown"><a href="#">Blog</a> <!--blog  --></li>
-										<li><a href="contact.html">Contact us</a></li>
-										<!--contact us -->
-									</ul>
-								</div>
-							</nav>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<!--End Header Upper-->
-
-			<!--Sticky Header-->
-			<div class="sticky-header">
-				<!--스크롤 내리면 같이 내려오는 헤더  -->
-				<div class="auto-container clearfix">
-					<!--하얀 배경의 헤더 -->
-					<!--Logo-->
-					<div class="logo pull-left">
-						<!-- 휴머니티 로고 -->
-						<a href="index.html" class="img-responsive"><img
-							src="images/logo-small.png" alt="" title=""></a>
-					</div>
-
-					<!--Right Col-->
-					<div class="right-col pull-right">
-						<!-- div로 로고랑 좌우 나눔 -->
-						<!-- Main Menu -->
-						<nav class="main-menu">
-							<div class="navbar-header">
-								<!-- Toggle Button -->
-								<!-- ??? -->
-								<button type="button" class="navbar-toggle"
-									data-toggle="collapse" data-target=".navbar-collapse">
-									<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-										class="icon-bar"></span>
-								</button>
-							</div>
-
-							<div class="navbar-collapse collapse clearfix">
-								<!-- 메뉴 마우스를 가져가면 밑에 딸린 페이지가 나타난다. -->
-								<ul class="navigation clearfix">
-									<li class="dropdown"><a href="#">Home</a></li>
-									<li class="dropdown"><a href="#">About</a></li>
-									<li class="current dropdown"><a href="#">Causes</a></li>
-									<li><a href="shop.html">Shop</a></li>
-									<li class="dropdown"><a href="#">Blog</a></li>
-									<li><a href="contact.html">Contact us</a></li>
-								</ul>
-							</div>
-						</nav>
-						<!-- Main Menu End-->
-					</div>
-
-				</div>
-			</div>
-			<!--End Sticky Header-->
+			 <!--Sticky Header-->
+        <div class="sticky-header">
+        	<div class="auto-container clearfix">
+            	<!--Logo-->
+            	<div class="logo pull-left">
+                	<a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
+                </div>
+                
+                <!--Right Col-->
+                <div class="right-col pull-right">
+                	<!-- Main Menu -->
+                    <nav class="main-menu">
+                        
+                        <div class="navbar-collapse collapse clearfix">
+							<ul class="navigation clearfix">
+                               <c:if test="${email == null}">
+                                    <li><a href="login">로그인</a></li>
+                                </c:if>
+                                <c:if test="${email != null}">
+                                	<li><a href="logout">로그아웃</a></li>
+                                	<li><a href="#">마이페이지</a></li>
+                                   	<li><a href="write">사연 올리기</a></li>
+                                </c:if>
+                            </ul>
+                        </div>
+                    </nav><!-- Main Menu End-->
+                </div>
+                
+            </div>
+        </div>
+        <!--End Sticky Header-->
 
 		</header>
 		<!--End Main Header -->
+		
 
 		    <!--Sidebar Page Container-->
     <div class="sidebar-page-container">
@@ -184,12 +192,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="causes-info"><strong>Raised</strong> ${board.blood_present} / <span class="theme_color">${board.goal_blood}</span></div>
+                                    <div class="causes-info"><strong>헌혈증</strong> ${board.blood_present} / <span class="theme_color">${board.goal_blood}</span>
+                                    	&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${board.goal_date}</span>
+                                    </div>
                                 </div>
                                 <div class="btn-column col-md-6 col-sm-6 col-xs-12">
                                 	<a href="donate.html" class="theme-btn btn-style-four">cheer up</a>
                                 </div>
                             </div>
+                            <ul class="count">
+                            	<li>
+                            		<span class="icon fa fa-comment-o"></span>13&nbsp;&nbsp;
+                          			<span class="icon fa fa-heart-o"></span>128&nbsp;&nbsp;
+                          			<c:if test="${email != null}">
+                          				<a href="boardUpdate?boardnum=${board.boardnum}"><span class="icon fa fa-pencil"></span></a>&nbsp;&nbsp;
+                          				<a href="boardDelete?boardnum=${board.boardnum}"><span class="icon fa fa-trash-o"></span></a>
+                          			</c:if>
+                          		</li>
+                            </ul>
                         </div>
                         <!--Lower Box-->
                         <div class="lower-box">
@@ -206,24 +226,22 @@
                         	<h2>전체 댓글</h2>
                         </div>
                         <!--Comment Form-->
-                        <form method="post" action="reply">
                             <div class="row clearfix">
                             
                             	<div class="column col-md-12 col-sm-12 col-xs-12">
                                     <!--Form Group-->
                                     <div class="form-group">
-                                    	<input type="hidden" name="boardnum" value="${board.boardnum}">
-                                        <textarea class = "content" rows="1" cols="10" name="text" id="text" maxlength="200" placeholder="
-저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 이용약관 및 관련 법률에 의해 제재를 받을 수 있습니다. 건전한 토론문화와 양질의 댓글 문화를 위해, 타인에게 불쾌감을 주는 욕설 또는 특정 계층/민족, 종교 등을 비하하는 단어들은 표시가 제한됩니다."></textarea>
+                                    	<input type="hidden" name="email" id="email" value = "${email}">
+                                    	<input type="hidden" name="boardnum"  id="boardnum" value="${board.boardnum}">
+                                        <textarea class = "content" rows="1" cols="10" name="text" id="text" maxlength="200" placeholder="저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 이용약관 및 관련 법률에 의해 제재를 받을 수 있습니다. 건전한 토론문화와 양질의 댓글 문화를 위해, 타인에게 불쾌감을 주는 욕설 또는 특정 계층/민족, 종교 등을 비하하는 단어들은 표시가 제한됩니다."></textarea>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12"> <!-- 버튼 -->
-                                    <button class="theme-btn btn-style-one" type="submit" name="submit-form" onclick="writeReply();">응원하기</button>
+                                    <button class="theme-btn btn-style-one" type="button" id="btnReply">댓글작성</button>
                                 </div>
                                 
                              </div>
-                        </form>
                         
                     </div>
                     <!--End Comment Form -->
@@ -231,21 +249,21 @@
                     
                     
                     <!--Comments Area-->
-                    <div class="comments-area">  <!-- 리플부분 -->
+                    <div class="comments-area" id="listReply">  <!-- 리플부분 -->
                         <!--Comment Outer-->
                         <div class="comment-outer">
                             <!--Comment Box-->
-                            <c:forEach var="replyList" items="${replyList}">
+                            <%-- <c:forEach var="replyList" items="${replyList}"> --%>
                             <div class="comment-box"> 
                                 <div class="comment">
-                                    <div class="author-thumb"><img src="images/resource/author-8.jpg" alt=""></div>
+                                    <!-- <div class="author-thumb"><img src="images/resource/author-8.jpg" alt=""></div> -->
                                     <div class="comment-inner">
-                                        <div class="comment-info clearfix"><strong>${replyList.email}</strong><div class="comment-time">${replyList.inputdate}</div></div>
-                                        <div class="text">${replyList.text}</div>
+                                        <div class="comment-info clearfix"><strong></strong><div class="comment-time"></div></div>
+                                        <div class="text"></div>
                                     </div>
                                 </div>
                             </div>
-                            </c:forEach>
+                            <%-- </c:forEach> --%>
                         </div>
                     </div>
                     <!--End Comments Area-->

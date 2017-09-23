@@ -37,9 +37,5 @@ public interface BoardDao {
 	public ArrayList<Mainboard> list();
 	//사연 작성
 	public int write(Mainboard mainboard);
-	//댓글 작성
-	public int reply(Reply reply);
-	//전체댓글 출력
-	public ArrayList<Reply> replylist(int boardnum);
 	
 }
