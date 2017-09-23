@@ -1,22 +1,28 @@
-#barcodevideo, #barcodecanvas, #barcodecanvasg {
-	height: 400px;
-}	
+#barcodevideo, #barcodecanvas, #barcodecanvasg   {
+   height: 400px;
+}   
 
 #barcodecanvasg {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
+    position: absolute;
+   top: 0px;
+   left: 50px;
+} 
 
 #result {
-	font-family: verdana;
-	font-size: 1.5em;
+   font-family: verdana;
+   font-size: 1.5em;
 }
 
 #barcode {
-	position: relative;
-}	
-
+   position: relative;
+   
+}   
+#barcodebk {
+   position: relative;
+   left: 250px;
+   width: 640px;
+   
+}   
 #barcodecanvas {
-	display: none;
+   display: none;
 }

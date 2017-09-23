@@ -48,38 +48,53 @@ public class MemberController {
 	
 
 	@RequestMapping(value = "login")
-	public String login() {
-		return "Member/login";
-	}
+	   public String login(
+	         String email
+	         , String password
+	         , HttpSession ss) {
+	      System.out.println(email);
+	      System.out.println(password);
+	      mapper = sqlsession.getMapper(MemberDao.class);
+	      Member mem = mapper.select(email);
+	      System.out.println(mem);
+	      // 비번 검사
+	      if (mem != null && mem.getPassword().equals(password)) {
 
-	@RequestMapping(value = "login", method=RequestMethod.POST)
-	public String login(
-			String email
-			, String password
-			, HttpSession ss) {
-		mapper = sqlsession.getMapper(MemberDao.class);
-		Member mem = mapper.select(email);
-		System.out.println(mem);
-		// 비번 검사
-		if (mem != null && mem.getPassword().equals(password)) {
+	         ss.setAttribute("email", email);
+	         ss.setAttribute("name", mem.getName());
+	         if (mem.getType() != 0) {
+	            // 탈퇴자
+	            if (mem.getType() == 2) {
+	               //관리자 계정 확인
+	               ss.setAttribute("type", mem.getType());
+	               System.out.println(mem.getType());
+	            }
+	            return "loginform";
+	         }
+	         return "redirect:/index";
 
-			ss.setAttribute("email", email);
-			ss.setAttribute("name", mem.getName());
-			//관리자 계정 확인
-			if (mem.getType() == 2) {
-				if (mem.getType() != 0) {
-					// 탈퇴자
-					return "";
-				}
-				ss.setAttribute("type", mem.getType());
-				System.out.println(mem.getType());
-			}
-			return "redirect:/";
+	      }
+	      return "redirect:loginform";
+	   }
 
-		}
-		return "redirect:login";
-	}
-
+	
+	//회원탈퇴시 type이  1로 변함
+	   @RequestMapping(value="unRegistered", method=RequestMethod.GET)   //왜 GET인지 POST가 아니고   
+	   public String delete(String email, HttpSession session) {
+	      //
+	      
+	      mapper = sqlsession.getMapper(MemberDao.class);
+	      email= (String) session.getAttribute("email");
+	      int result = mapper.delete(email);
+	      System.out.println(result);
+	      if(result == 1) {
+	         return "loginform";
+	      } 
+	      else {
+	         return "redirect:/";
+	      }
+	   }
+	
 	@RequestMapping(value ="logout")
 	public String logout(HttpSession ss) {
 		ss.invalidate();

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sesoc.global.redocean.dao.BloodDao;
-import sesoc.global.redocean.dao.BoardDao;
-import sesoc.global.redocean.dao.MemberDao;
 import sesoc.global.redocean.vo.Bdcard;
 
 @Controller
@@ -30,7 +28,7 @@ public class BloodController {
 	// 바코드 폼가기
 	@RequestMapping(value = "barcode")
 	public String barcode() {
-		return "barcode";
+		return "Blood/barcode";
 	}
 
 	// 바코드 찍고 확인하기
