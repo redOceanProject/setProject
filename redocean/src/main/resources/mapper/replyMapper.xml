@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 리플 관련 SQL -->
+<mapper namespace="sesoc.global.redocean.dao.ReplyDao">
+	<!-- bdcard 리스트 -->
+	<select id="selectAll" resultType="reply">
+		SELECT * FROM reply
+		<!-- 전체 리플 가져오는데서 그침 뒤에 추가로 WHERE 절 넣어 변경해야 함 -->
+		ORDER BY inputdate DESC
+
+	</select>
+	
+	<insert id="insert" parameterType="reply">
+			insert into reply(replynum, email, text, boardnum) 
+			values(SEQ_reply_replynum.nextval, #{email}, #{text}, '3')
+			<!-- inputdate 자동으로 넣게 설정 안되어 있음ㅋ -->
+	</insert>
+
+</mapper>
