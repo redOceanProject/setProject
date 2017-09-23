@@ -46,8 +46,14 @@ public class MemberController {
 		return"";
 	}
 	
-
-	@RequestMapping(value = "login")
+	//로그인폼
+	@RequestMapping(value="login")
+	public String login(){
+		return "Member/login";
+	}
+	
+	
+	@RequestMapping(value = "login", method=RequestMethod.POST)
 	   public String login(
 	         String email
 	         , String password
