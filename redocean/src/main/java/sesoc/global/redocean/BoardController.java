@@ -43,7 +43,7 @@ public class BoardController {
 	
 	final String uploadPath = "/mainboard_file";
 	
-	//보드리스트
+	//전체사연 게시판에서 전체사연 목록을 보여준다.
 	@RequestMapping("boardList")
 	public String boardlist(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchtype", defaultValue = "title") String searchtype,
@@ -69,19 +69,37 @@ public class BoardController {
 		return "Board/boardList";
 	}
 
+	//하나의 상세 사연
 	@RequestMapping("/boardDetail")
-	public String boardDetail(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchtype", defaultValue = "title") String searchtype,
-			@RequestParam(value = "searchword", defaultValue = "") String searchword, int boardnum, Model model) {
+	public String boardDetail(int boardnum, Model model) {
 		mapper = sqlsession.getMapper(BoardDao.class);
 		String mime = null;
 		// 글 읽어옴
 		Mainboard board = mapper.selectOne(boardnum);
 		// 히트수 증가
 		mapper.hitCount(boardnum);
-
-		// 글에 있는 세이브드 파일 판명
-
+		
+		//목료 헌혈증을 받았으면 여기로 
+		if(board.getGoal_blood() == board.getBlood_present()){
+			// 글에 있는 세이브드 파일 판명
+			if (board.getSavedfile() != null) {
+				String fullPath = uploadPath + "/" + board.getSavedfile();
+				try {
+					// 저장된 파일의 MimeType을 확인함. 이미지일 경우 View단에서 바로 출력할 수 있도록!!
+					mime = Files.probeContentType(Paths.get(fullPath));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (mime.contains("image"))
+					model.addAttribute("mimetype", mime);
+			}
+			// 모델에 글과 네비 담기
+			model.addAttribute("board", board);
+			return "Board/change";
+		
+		}
+		
+		//아직 목표 헌혈증에 도달하지 못하였을 때
 		if (board.getSavedfile() != null) {
 			String fullPath = uploadPath + "/" + board.getSavedfile();
 			try {
@@ -93,24 +111,22 @@ public class BoardController {
 			if (mime.contains("image"))
 				model.addAttribute("mimetype", mime);
 		}
-
-		// 글목록 불러옴
-		Map<String, String> search = new HashMap<>();
-		search.put("searchtype", searchtype);
-		search.put("searchword", searchword);
-		int totalRecordCount = mapper.getBoardCount(search);
-		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
-
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
-		model.addAttribute("navi", navi);
-		model.addAttribute("boardnum", boardnum);
-
-		// 서치타입 및 워드 담기
-		model.addAttribute("searchtype", searchtype);
-		model.addAttribute("searchword", searchword);
-
 		return "Board/boardDetail";
+	}
+	
+	
+	//헌혈증 수량 완성
+	@RequestMapping("/change")
+	public String change(
+			int boardnum){
+		//헌혈증 남은 갯수는 클라단에서 처리
+		//여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
+		mapper = sqlsession.getMapper(BoardDao.class);
+		mapper.change(boardnum);
+		
+		return "Board/change";
 	}
 
 	/**
@@ -120,6 +136,7 @@ public class BoardController {
 	 * @param model
 	 * @return
 	 */
+	//사연수정 이동 
 	@RequestMapping("/boardUpdate")
 	public String boardUpdate(int boardnum, Model model, Mainboard board) {
 		// session에서 아이디 꺼내는 작업 필요
@@ -140,12 +157,17 @@ public class BoardController {
 	 * @param model
 	 * @return
 	 */
+	//사연 수정 처리 
 	@RequestMapping(value = "/boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(Mainboard board, MultipartFile upload, HttpSession session, RedirectAttributes rttr) {
-		// 수정할 글이 로그인한 본인 글인지 확인
-		// (만약 글보기에서 자신의 글이 아니더라도 수정버튼이 있다면 아래의 코드 필요)
+		
+		
+		//줄 바꿈 
 		String str = board.getContent().replaceAll("\r\n", "<br>");
 		board.setContent(str);
+		
+		// 수정할 글이 로그인한 본인 글인지 확인
+		// (만약 글보기에서 자신의 글이 아니더라도 수정버튼이 있다면 아래의 코드 필요)
 		String email = (String) session.getAttribute("email");
 		mapper = sqlsession.getMapper(BoardDao.class);
 		Mainboard oldBoard = mapper.selectOne(board.getBoardnum());
@@ -186,7 +208,8 @@ public class BoardController {
 
 		return "redirect:boardDetail";
 	}
-
+	
+	//사연 삭제
 	@RequestMapping("/boardDelete")
 	public String boardDelete(int boardnum, Model model, HttpSession session) {
 		// 삭제할 글이 로그인한 본인 글인지 확인
@@ -212,17 +235,7 @@ public class BoardController {
 	}
 	
 	
-	//헌혈증 수량 완성
-	@RequestMapping("/change")
-	public String change(
-			int boardnum){
-		//헌혈증 남은 갯수는 클라단에서 처리
-		//여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
-		mapper = sqlsession.getMapper(BoardDao.class);
-		mapper.change(boardnum);
-		
-		return "change";
-	}
+
 	
 	//다운로드
 	@RequestMapping(value = "download", method = RequestMethod.GET)
@@ -311,8 +324,7 @@ public class BoardController {
 	//댓글 출력
 	@RequestMapping(value="getreply")
 	public @ResponseBody ArrayList<Reply> getreply(
-			HttpSession ss
-			,int boardnum
+			@RequestParam int boardnum
 			){
 		System.out.println(boardnum);
 		replyMapper = sqlsession.getMapper(ReplyDao.class);

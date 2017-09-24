@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 
 import sesoc.global.redocean.vo.Mainboard;
-import sesoc.global.redocean.vo.Reply;
 
 
 public interface BoardDao {
@@ -33,8 +32,10 @@ public interface BoardDao {
 	public int change(int boardnum);
 	
 	
-	//전체 게시판
+	//전체 게시판, 첫 홈 화면에 최신사연 보여줄 때 사용
 	public ArrayList<Mainboard> list();
+	//내가 보낸 사연들
+	public ArrayList<Mainboard> myList(String email);
 	//사연 작성
 	public int write(Mainboard mainboard);
 	

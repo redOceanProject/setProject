@@ -168,7 +168,7 @@
 									</div>
 									<canvas id="barcodecanvas"></canvas>
 								</div>
-								
+								<br>
 								<form action="findinfo" id="findinfo" method="post">
 									<input type="text" id="result" name="num" value="">
 									<!-- <input type="submit" value="확인">&nbsp; <input type="reset" value="다시 스캔"> -->

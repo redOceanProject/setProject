@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta charset="utf-8">
-<title>Huminity HTML Template | Causes Grid View</title>
+<title>Huminity HTML Template | Donate</title>
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
@@ -25,15 +27,15 @@
 </head>
 
 <body>
-<div class="page-wrapper"> 
+<div class="page-wrapper">
  	
     <!-- Preloader -->
-    <div class="preloader"></div>
- 	
-    <!-- Main Header--> 
-    <header class="main-header header-type-one"> 
-    
-    	    	<!--Header-Upper-->
+		<div class="preloader"></div>
+
+		<!-- Main Header-->
+		<header class="main-header header-type-one">
+
+    	<!--Header-Upper-->
         <div class="header-upper">
         	<div class="auto-container">
             	<div class="clearfix">
@@ -45,15 +47,14 @@
                     <div class="nav-outer clearfix">
                         <!-- Main Menu -->
                         <nav class="main-menu">
-                        	
-                       		<div class="navbar-header"><!-- 반응형 -->
-                         	<!-- Toggle Button -->    	
-                    			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        			<span class="icon-bar"></span>
-                            		<span class="icon-bar"></span>
-                            		<span class="icon-bar"></span>
-                       			</button>
-                    		</div>    
+                        	 <div class="navbar-header">
+                                <!-- Toggle Button -->    	
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
                             <div class="navbar-collapse collapse clearfix">
                                 <ul class="navigation clearfix">
                                 	<c:if test="${email == null}">
@@ -61,7 +62,7 @@
                                 	</c:if>
                                 	<c:if test="${email != null}">
                                 		<li><a href="logout">${name}..로그아웃</a></li>
-                                		<li><a href="#">마이페이지</a></li>
+                                		<li><a href="myPage">마이페이지</a></li>
                                     	<li><a href="write">사연 올리기</a></li>
                                     </c:if>
                                 </ul>
@@ -93,7 +94,7 @@
                                 </c:if>
                                 <c:if test="${email != null}">
                                 	<li><a href="logout">${name}..로그아웃</a></li>
-                                	<li><a href="#">마이페이지</a></li>
+                                	<li><a href="myPage">마이페이지</a></li>
                                    	<li><a href="write">사연 올리기</a></li>
                                 </c:if>
                             </ul>
@@ -109,58 +110,81 @@
 		<!--End Main Header -->
     
     
-    <!--Causes Section-->
-    <section class="causes-section causes-grid-page"> <!-- 사연 부분 -->
+    <!--End Page Title-->
+    
+    <!--Donate Section-->
+    <section class="donate-section">
     	<div class="auto-container">
-        
         	
-        	<div class="row clearfix">
-            	<!--Causes Block--> <!-- 사연1 -->
-            	<c:forEach var="boardList" items="${boardList}">
-            	<div class="causes-block col-md-4 col-sm-6 col-xs-12">
-                	<div class="inner-box">
-                    	<div class="image">
-							<a href="boardDetail?boardnum=${boardList.boardnum}"><img src="download?boardnum=${boardList.boardnum}"/></a><!-- 이미지 -->
-                        </div>
-                        <div class="lower-box">
-                        	<div class="content">
-                                <h3><a href="boardDetail?boardnum=${boardList.boardnum}">${boardList.title}</a></h3> <!--제목-->
-                                <div class="text">${boardList.content}</div><!--내용 미리보기-->
-                                <div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
-                                    <div class="bar-inner"> <!--프로그래스 바-->
-                                        <div class="bar" style="width:<fmt:formatNumber value="${(boardList.blood_present)/(boardList.goal_blood)*100}" pattern="0"/>%;">
-                                            <div class="count-box"><span class="count-text" data-speed="2000" data-stop="<fmt:formatNumber value="${(boardList.blood_present)/(boardList.goal_blood)*100}" pattern="0"/>"></span>%</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="causes-info"><strong>헌혈증</strong> ${boardList.blood_present} / <span class="theme_color">${boardList.goal_blood}</span>
-                                	&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${boardList.goal_date}</span>
-                                </div>
+            
+            <div class="donate-form-section">
+            	
+                <div class="donation-form-outer">
+            	<form method="post" action="contact.html">
+                	
+                    <!--Form Portlet-->
+                    <div class="form-portlet" style="text-align : center; padding-bottom:5px; border-bottom: 1px solid #eee" >
+                    	<h3>MyPage</h3>
+                    </div>
+                    
+                    <!--Form Portlet-->
+                    <div class="form-portlet" style="color:black;">
+                        <div class="row clearfix">
+                            <div class="row" style="padding-top:60px;">
+	                            
+                            <div class="row">
+	                            <div class="form-group col-md-6 ">
+	                            	<!-- <div class="field-label">My BloodCard <span class="required">*</span></div> -->
+	                            	<div class="field-label"><a href="showMYbdlist">내 헌혈증</a></div>
+	                            </div>
+                            </div>
+                            <div class="row">
+	                            <div class="form-group col-md-6">
+	                            	<div class="field-label"><a href="myDonation">기부한 곳들</a></div>
+	                            </div>
+                            </div>
+                            <div class="row">
+	                            <div class="form-group col-md-6">
+	                            	<div class="field-label"><a href="myStory">나의 사연</a></div>
+	                            </div>
+                            </div>
+	                        <div class="row">    
+	                            <div class="form-group col-md-6">
+	                            	<div class="field-label"><a href="unRegistered">회원탈퇴</a></div>
+	                            </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                </c:forEach>
+                   </div>
+                </form>
             </div>
-            	
-            
-            <!-- Styled Pagination --> <!--다음 페이지-->
-            <div class="styled-pagination text-center">
-                <ul class="clearfix">
-                    <li><a href="#" class="active">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a class="next" href="#">Next</a></li>
-                </ul>
+                
             </div>
             
         </div>
     </section>
-    <!--End Causes Section-->
+    <!--End Donate Section-->
     
+    
+    
+    <!--Main Footer-->
+	<footer class="main-footer"> 
+		<div class="footer-bottom">
+			<div class="auto-container">
+				<div class="row clearfix">
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="copyright">
+							All Right Researved <a href="#">RedOceans</a> &copy; 2017
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
     
 </div>
 <!--End pagewrapper-->
+
 
 
 
@@ -172,6 +196,7 @@
 <script src="js/owl.js"></script>
 <script src="js/appear.js"></script>
 <script src="js/wow.js"></script>
+<script src="js/jquery-ui.js"></script>
 <script src="js/script.js"></script>
 
 </body>

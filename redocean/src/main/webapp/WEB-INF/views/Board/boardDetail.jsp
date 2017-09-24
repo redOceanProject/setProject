@@ -10,6 +10,8 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
+<link href="css/bdcard5.css" rel="stylesheet">
+<link href="css/cordLine.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
 <link href="css/color-themes/red-theme.css" rel="stylesheet">
@@ -49,34 +51,142 @@
 	// RestController방식 (Json)
 	// **댓글 목록2 (json)
 	function listReply2(boadnum) {
-				alert(result);
 		$.ajax({
 			type : "post",
 			//contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-			data: boardnum,
-			url : "getreply",
+			data: ${board.boardnum},
+			url : "getreply?boardnum=${board.boardnum}",
 			success : function(result) {
 				var output = "<div>";
 				for ( var i in result) {
-					output += "<div> ";
-					output += "<div> ";
-					output += "<div> ";
-					output += "<div> ";
-					output += "<div>";
-					output += "<strong>"+result[i]+email+"</strong>";
-					output += "<div>"+result[i]+inputdate+"</div>";
+					//output += "<div class=comments-area>";
+					output += "<div class=comment-outer>";
+					output += "<div class=comment-box>";
+					output += "<div class=comment>";
+					output += "<div class=comment-inner>";
+					output += "<div class=comment-info clearfix>"
+					output += "<strong>"+result[i].email+"</strong>";
+					output += "<div class=comment-time>"+result[i].inputdate+"</div>";
+					output += "</div></div>";
+					output += "<div class=text>"+result[i].text+"</div>";
 					output += "</div>";
-					output += "<div>"+result[i]+text+"</div>";
 					output += "</div>";
 					output += "</div>";
-					output += "</div>";
-					output += "</div>";
+					//output += "</div>";
 				}
 				output += "</div>";
 				$("#listReply").html(output);
 			}
 		});
 	}
+</script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#bt6').on('click', test6);
+	$('#cheerUpButton').on('click', sendSlcBdc);
+});
+
+function selectTable(bdbar_num) {
+	var input = $('#'+bdbar_num+'c').val();
+	$('#'+bdbar_num).html(input); 
+	$('#'+bdbar_num+'s').remove();
+	$('#'+bdbar_num+'c').remove(); 
+}
+
+
+// 선택한 테이블 붙이기
+function appendTable(bdbar_num) {
+	var hiddenTable = $('#' + bdbar_num).html()
+	var selectedTable = '<div class="CLdiv"><table id="'+bdbar_num+'s" class="cordLine" onclick="selectTable('+bdbar_num+')">'
+		selectedTable+= '<tr><td class="cordLineTd1"></td><td class="cordLineTd2" name="slcBdcnum">'+bdbar_num+'</td></tr></table>';
+		selectedTable+= '<input type="hidden" id="'+bdbar_num+'c"></div>';
+	$('#selectedTable').append(selectedTable);
+	$('#'+bdbar_num+'c').val(hiddenTable);
+	$('#'+bdbar_num).html(''); 
+}
+
+function test6() {
+	$.ajax({
+		url : 'test6',
+		type : 'GET',
+		dataType : 'json',
+		success : function(msg) {
+			var txt = "";
+			for(var i in msg.bd) {
+				txt += '<div id="'+msg.bd[i].bdbar_num+'" class="mimage" onclick="appendTable('+msg.bd[i].bdbar_num+')">';
+				txt += '<img src="images/bdcardBlank.png" style="width: 300px; height: auto;">';
+				txt += '<div class="mtextN mcardLeft mcardLine1">';
+				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].name+'" readonly></div>';
+				txt += '<div class="mtextBD mcardLeft mcardLine2">';
+				txt+= '<input type="text" class="mcardText" value="'+msg.bd[i].bdbirth+'" readonly></div>';
+				txt += '<div class="mtextBT mcardRight mcardLine1">';
+				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].consituent+''+msg.bd[i].bloodvolume+'" readonly></div>';
+				txt += '<div class="mtextS mcardRight mcardLine2">';
+				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].gender+'" readonly></div>';
+				txt += '<div class="mtextDD mcardLeft  mcardLine3">';
+				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].bddate+'" readonly></div>';
+				txt += '<div class="mtextCT mcardLeft mcardLine4">';
+				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].bdcenter+'" style="width: 170px;" readonly></div>';
+				txt += '<div class="mBarcode"><input type="text" class="mcardBarcode" value="'+msg.bd[i].bdbar_num+'" readonly></div></div>';
+				txt += "<br><br>";
+				}
+ 		$('#output').append(txt);
+		},
+		error : function(e) {
+			alert('실패 : ' + JSON.stringify(e));
+		}
+	});
+}
+
+//배열로 만들어서 보내기
+function sendSlcBdc() {
+	var fields = document.getElementsByName("slcBdcnum");
+	var test = [];
+	var toEmail = '${board.email}';
+	
+	for (var i = 0; i < fields.length; i++) {
+		 alert(fields[i].innerHTML);
+		 test.push(fields[i].innerHTML);
+	}
+	
+	console.log(test);
+	console.log(toEmail);
+	
+	$.ajaxSettings.traditional = true;
+	
+	$.ajax({
+		url: 'send',
+		type: 'post',
+		data: {
+			"valueArrTest": test, toEmail : toEmail
+		},
+		dataType: 'String',
+		success : function() {
+			alert('저장되옸소');
+		},
+		error : function(request,status,error) {
+			alert(JSON.stringify(request,status,error));
+		}
+	});
+	// 이메일만 따로 보내보기
+/* 	alert('${board.email}')
+	$.ajax({
+		url: 'send2',
+		type: 'post',
+		data: 
+			{toEmail : '${board.email}'}
+		,
+		success : function() {
+			alert('저장되옸소');
+		},
+		error : function(request,status,error) {
+			alert(JSON.stringify(request,status,error));
+		}
+	}); */
+	
+}
+
 </script>
 </head>
 <body>
@@ -116,8 +226,8 @@
                                     	<li><a href="login">로그인</a></li>
                                 	</c:if>
                                 	<c:if test="${email != null}">
-                                		<li><a href="logout">로그아웃</a></li>
-                                		<li><a href="#">마이페이지</a></li>
+                                		<li><a href="logout">${name}..로그아웃</a></li>
+                                		<li><a href="myPage">마이페이지</a></li>
                                     	<li><a href="write">사연 올리기</a></li>
                                     </c:if>
                                 </ul>
@@ -148,8 +258,8 @@
                                     <li><a href="login">로그인</a></li>
                                 </c:if>
                                 <c:if test="${email != null}">
-                                	<li><a href="logout">로그아웃</a></li>
-                                	<li><a href="#">마이페이지</a></li>
+                                	<li><a href="logout">${name}..로그아웃</a></li>
+                                	<li><a href="myPage">마이페이지</a></li>
                                    	<li><a href="write">사연 올리기</a></li>
                                 </c:if>
                             </ul>
@@ -186,7 +296,7 @@
                             	<!--Rate Column-->
                             	<div class="rate-column col-md-6 col-sm-6 col-xs-12">
                                 	<div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
-                                        <div class="bar-inner">
+                                        <div class="bar-inner" >
                                             <div class="bar" style="width:<fmt:formatNumber value="${(board.blood_present)/(board.goal_blood)*100}" pattern="0"/>%;">
                                                 <div class="count-box"><span class="count-text" data-speed="2000" data-stop="<fmt:formatNumber value="${(board.blood_present)/(board.goal_blood)*100}" pattern="0"/>">0</span>%</div>
                                             </div>
@@ -196,8 +306,15 @@
                                     	&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${board.goal_date}</span>
                                     </div>
                                 </div>
+                                <!-- 선택된 헌혈증 번호 리스트 출력 -->
                                 <div class="btn-column col-md-6 col-sm-6 col-xs-12">
-                                	<a href="donate.html" class="theme-btn btn-style-four">cheer up</a>
+                                	<div class="btn-column col-md-6 col-sm-6 col-xs-12" style="vertical-align: top;">
+									<div id="selectedTable" style="float: left;">
+									
+									</div>
+									
+										<input id="cheerUpButton" type="button" class="theme-btn btn-style-four" style="float:right;" value="cheer up">
+									</div>
                                 </div>
                             </div>
                             <ul class="count">
@@ -253,22 +370,38 @@
                         <!--Comment Outer-->
                         <div class="comment-outer">
                             <!--Comment Box-->
-                            <%-- <c:forEach var="replyList" items="${replyList}"> --%>
                             <div class="comment-box"> 
                                 <div class="comment">
-                                    <!-- <div class="author-thumb"><img src="images/resource/author-8.jpg" alt=""></div> -->
                                     <div class="comment-inner">
                                         <div class="comment-info clearfix"><strong></strong><div class="comment-time"></div></div>
                                         <div class="text"></div>
                                     </div>
                                 </div>
                             </div>
-                            <%-- </c:forEach> --%>
                         </div>
                     </div>
                     <!--End Comments Area-->
                     
                 </div>
+                
+                
+                <!-- 내 헌혈증 리스트가 나오는 곳 -->
+                <div class="sidebar-side col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<aside class="sidebar default-sidebar">
+						<!--보유 헌혈증 리스트-->
+						<div class="sidebar-widget sidebar-blog-category">
+						<!-- <div class="sidebar-title">
+								<h2>내 헌혈증</h2>
+								<a href="bdDonateform">bdDonateform</a>
+							</div> -->
+							<input type="button" id="bt6" value="내 헌혈증 보기"> <br>
+							<div id="output"></div>
+						</div>
+					</aside>
+				</div>
+				
+				
+				
             </div>
         </div>
     </div>

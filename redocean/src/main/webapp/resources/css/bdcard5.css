@@ -1,0 +1,178 @@
+@CHARSET "UTF-8";
+@import url(http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+body {
+	width:1000px;
+	height:1000px;
+	margin: 0 auto;
+}
+
+div.wrapper {
+	margin: 0 auto;
+	width:100px;
+	height:100px;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.bimage {
+   position:relative;
+   width:503px; 
+   height:314px; 
+   margin:0 auto;
+/*    float:left; */
+
+}
+
+.cardLeft {
+	left:120px;
+}
+
+.cardRight {
+	left:353px;
+}
+
+.cardLine1 {
+	top:101px;
+}
+
+.cardLine2 {
+	top:130px;
+}
+
+.cardLine3 {
+	top:215px;
+}
+
+.cardLine4 {
+	top:245px;
+}
+
+input.cardText {
+	font-family:'Nanum Barun Gothic';
+/* 	font-weight:bold; */
+	font-size:17pt;
+	width:130px;
+	height:22px;
+	border:0;
+}
+
+input.cardBarcode {
+	font-family:'Nanum Gothic';
+	font-weight:bold;
+	font-size:17pt;
+	width:170px;
+	height:18px;
+	border:0;
+}
+
+.textN{
+   position:absolute;
+}
+
+.textBD{
+   position:absolute;
+}
+.textBT{
+   position:absolute;
+}
+.textS{
+   position:absolute;
+}
+.textDD{
+   position:absolute;
+}
+.textCT{
+   position:absolute;
+   width:200px
+}
+.Barcode{
+   position:absolute;
+   top:11px;
+   left:300px;
+}
+
+
+
+
+
+.mimage {
+   position:relative;
+   width:300px; 
+   height:auto; 
+   margin:0 auto;
+/*    float:left; */
+
+}
+
+.mcardLeft {
+	left:73px;
+}
+
+.mcardRight {
+	left:212px;
+}
+
+.mcardLine1 {
+	top:58px;
+}
+
+.mcardLine2 {
+	top:75px;
+}
+
+.mcardLine3 {
+	top:126px;
+}
+
+.mcardLine4 {
+	top:143px;
+}
+
+.mBarcode{
+   position:absolute;
+   top:6px;
+   left:177px;
+}
+
+input.mcardText {
+	font-family:'Nanum Barun Gothic';
+/* 	font-weight:bold; */
+	font-size:11pt;
+	width:80px;
+	height:14px;
+	border:0;
+}
+
+input.mcardBarcode {
+	font-family:'Nanum Gothic';
+	font-weight:bold;
+	font-size:11pt;
+	width:110px;
+	height:13px;
+	border:0;
+}
+
+.mtextN{
+   position:absolute;
+}
+
+.mtextBD{
+   position:absolute;
+}
+.mtextBT{
+   position:absolute;
+}
+.mtextS{
+   position:absolute;
+}
+.mtextDD{
+   position:absolute;
+}
+.mtextCT{
+   position:absolute;
+   width:200px
+}

@@ -6,6 +6,7 @@
 <!-- 게시판 정보 처리 SQL -->
 <mapper namespace="sesoc.global.redocean.dao.BoardDao">
 
+	<!-- 전체 사연 보기 -->
 	<select id="select" resultType="mainboard" parameterType="map">
 		SELECT
 		boardnum
@@ -46,6 +47,31 @@
 		</choose>
 		LIKE '%'|| #{searchword} || '%'
 	</select>
+	
+	<!-- 마이 리스트 -->
+	<select id="myList" resultType="mainboard" parameterType="string">
+		SELECT
+		boardnum
+		, email
+		, name
+		, title
+		, content
+		, to_char(inputdate, 'YYYY-MM-DD') inputdate
+		, to_char(goal_date, 'YYYY-MM-DD') goal_date
+		, hits
+		, originalfile
+		, savedfile
+		, sickName
+		, status
+		, goal_blood
+		, blood_present
+		FROM mainboard
+		WHERE
+		email = #{email}
+		ORDER BY boardnum DESC
+	</select>	
+	
+	
 	<!-- 글 하나 선택 -->
 	<select id="selectOne" parameterType="int" resultType="mainboard">
 		SELECT
@@ -122,7 +148,7 @@
 	</update>
 	
 	<!-- 전체 게시판 읽기  -->
- 	<select id="list" resultType="mainboard">
+ 	<select id="list" resultType="mainboard" parameterType="string">
 		select 
 		boardnum
 		, email

@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+table.cordLine {
+	/* 	border: 1px solid red; */
+	/* 	border-radius: 10px; */
+	border-collapse: collapse;
+	border: none;
+	margin: 5px;
+}
+
+td.cordLineTd1 {
+	background-color: #4d7fbd;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	width: 7px;
+}
+
+td.cordLineTd2 {
+/* 	border: 1px solid #4d7fbd; */
+/* 	background-color: #ffff99; */
+	background-color: LightGoldenRodYellow ;
+	border-bottom-right-radius: 20px;
+ 	padding-left: 5px;
+	font-family:'Nanum Gothic';
+	font-weight:bold;
+	font-size:17pt;
+	width: 180px;
+}
+
+div.CLdiv {
+}

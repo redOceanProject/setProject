@@ -30,11 +30,23 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	//index화면
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
 		mapper = sqlsession.getMapper(BoardDao.class);
 		ArrayList<Mainboard> list = mapper.list();
+		
+		//내용 미리보기 만드는 중
+		/*ArrayList<String> contentList = new ArrayList<>();
+		for (Mainboard mainboard : list) {
+			contentList.add(mainboard.getContent());
+		}
+		
+		for (String string : contentList) {
+			System.out.println(string);
+		}*/
+		
 		model.addAttribute("list", list);
 		return "index";
 	}

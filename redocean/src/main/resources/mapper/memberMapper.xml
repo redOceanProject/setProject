@@ -5,7 +5,8 @@
 
 <!-- 회원정보 처리 SQL -->
 <mapper namespace="sesoc.global.redocean.dao.MemberDao">
-
+	
+	<!-- 회원가입 -->
 	<insert id="insert" parameterType="member">
 		INSERT INTO member values(
 			#{email}
@@ -14,16 +15,27 @@
 			, '0'
 		)
 	</insert>
+	
+	<!-- 로그인 -->
 	<select id="select" parameterType="string" resultType="member">
 		
 		SELECT * FROM member WHERE email = #{email}
 
 	</select>
 	
+	<!-- 헌혈증 보기 -->
 	<select id="seletBdlist" parameterType="string" resultType="bdcard">
 		SELECT * FROM bdcard WHERE email = #{email} ORDER BY bddate DESC
 	
 	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id= "delete" parameterType="string" >
+      update member set
+      type = '1'
+      where
+         email= #{email}
+   </update>
 	
 <!--	<update id="update" parameterType="member">
 		UPDATE customer
