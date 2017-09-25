@@ -170,11 +170,12 @@ public class BloodController {
 	@RequestMapping(value = "send")
 	public String send(
 			@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-			, String toEmail) {
+			, String toEmail, int boardnum) {
 		mapper = sqlsession.getMapper(BloodDao.class);
 		
 		System.out.println(bdbar_num.toString());
 		System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다"+toEmail);
+		System.out.println("보드넘 나와라"+boardnum);
 		
 		for (int i = 0; i < bdbar_num.size(); i++) {
 			// map에 담아 가져오기

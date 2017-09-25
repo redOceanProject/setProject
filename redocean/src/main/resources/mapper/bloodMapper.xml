@@ -34,11 +34,9 @@
 	</select>
 
 	<update id="donate" parameterType="map">
-		UPDATE donation
-		SET
-
-
-		WHERE bdcardnum = #{bdcardnum}
+		UPDATE bdcard
+		SET toemail = #{toEmail}
+		WHERE bdbar_num = #{bdbar_num}
 	</update>
 
 	<!-- bdcard 리스트 -->

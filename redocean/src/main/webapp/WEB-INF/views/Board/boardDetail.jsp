@@ -144,6 +144,7 @@ function sendSlcBdc() {
 	var fields = document.getElementsByName("slcBdcnum");
 	var test = [];
 	var toEmail = '${board.email}';
+	var boardnum = '${board.boardnum}';
 	
 	for (var i = 0; i < fields.length; i++) {
 		 alert(fields[i].innerHTML);
@@ -159,7 +160,7 @@ function sendSlcBdc() {
 		url: 'send',
 		type: 'post',
 		data: {
-			"valueArrTest": test, toEmail : toEmail
+			"valueArrTest": test, toEmail : toEmail, boardnum : boardnum
 		},
 		dataType: 'String',
 		success : function() {
