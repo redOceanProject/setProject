@@ -17,7 +17,16 @@
 	margin-right: auto;
 } */
 
-
+.red1{
+	border: 2px solid red;
+}
+.black1{
+	border: 2px solid black;
+}
+.usedCard{
+	
+	border: 1px solid red;
+}
 .image {
    position:relative;
    width:503px; 
@@ -103,6 +112,7 @@ input.cardBarcode {
    position:relative;
    width:300px; 
    height:auto; 
+   padding:5px;
    /* margin:0 auto; */
 /*    float:left; */
 

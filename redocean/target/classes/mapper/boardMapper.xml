@@ -190,4 +190,8 @@
 		)
  	</insert>
 	
+	<select id="selectboardlist" parameterType="string" resultType="mainboard">
+       SELECT * FROM mainboard WHERE boardnum = #{boardnum}
+    </select>
+	
 </mapper>

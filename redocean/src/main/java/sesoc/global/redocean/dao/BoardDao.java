@@ -31,7 +31,8 @@ public interface BoardDao {
 	//게시글 목표달성
 	public int change(int boardnum);
 	
-	
+	//사연보낸거 리스트 읽어오기
+	   public ArrayList<Mainboard> selectboardlist(String boardnum);
 	//전체 게시판, 첫 홈 화면에 최신사연 보여줄 때 사용
 	public ArrayList<Mainboard> list();
 	//내가 보낸 사연들

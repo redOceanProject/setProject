@@ -10,7 +10,6 @@
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
@@ -140,7 +139,7 @@
                             </div>
                             <div class="row">
 	                            <div class="form-group col-md-6">
-	                            	<div class="field-label"><a href="myDonation">기부한 곳들</a></div>
+	                            	<div class="field-label"><a href="myDonation">기부 현황</a></div>
 	                            </div>
                             </div>
                             <div class="row">

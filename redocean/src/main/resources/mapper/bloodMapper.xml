@@ -113,6 +113,13 @@
 		ORDER BY bddate DESC
 
 	</select>
+	
+	<select id="selectBoardnum" parameterType="string" resultType="string">
+      SELECT DISTINCT boardnum
+      FROM bdcard
+      WHERE email = #{email}
+      AND boardnum is not null
+   </select>
 
 
 </mapper>

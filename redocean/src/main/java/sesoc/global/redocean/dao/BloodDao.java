@@ -29,4 +29,7 @@ public interface BloodDao {
 
 	//받은 헌혈증 리스트
 	public ArrayList<Bdcard> recivedlist(String toemail);
+	
+	//헌혈증에서 boardnum 가져오기(중복제거)
+	   public ArrayList<String> selectBoardnum(String email);
 }

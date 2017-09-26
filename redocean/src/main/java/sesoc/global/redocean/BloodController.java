@@ -178,29 +178,32 @@ public class BloodController {
 	}
 
 	// 헌혈증 보내기
-	@ResponseBody
-	@RequestMapping(value = "send")
-	public String send(
-			@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-			, String toEmail, String boardnum) {
-		mapper = sqlsession.getMapper(BloodDao.class);
-		
-		System.out.println(bdbar_num.toString());
-		System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다"+toEmail);
-		
-		for (int i = 0; i < bdbar_num.size(); i++) {
-			// map에 담아 가져오기
-			Map<String, String> bdlist = new HashMap<>();
-			bdlist.put("bdbar_num", bdbar_num.get(i));
-			bdlist.put("toEmail", toEmail);
-			bdlist.put("boardnum", boardnum);
-			//투이메일 집어넣기
-			//집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
-			mapper.donate(bdlist);
-		}
-		
-		return "redirect:donation";
-	}
+	   @ResponseBody
+	   @RequestMapping(value = "send")
+	   public String send(
+	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
+	         , String toEmail
+	         , int boardnum
+	         ) {
+	      mapper = sqlsession.getMapper(BloodDao.class);
+
+	      String boardnumber = Integer.toString(boardnum);
+	      System.out.println(bdbar_num.toString());
+	      System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다" + toEmail);
+
+	      for (int i = 0; i < bdbar_num.size(); i++) {
+	         // map에 담아 가져오기
+	         Map<String, String> bdlist = new HashMap<>();
+	         bdlist.put("bdbar_num", bdbar_num.get(i));
+	         bdlist.put("toEmail", toEmail);
+	         bdlist.put("boardnum", boardnumber);
+	         // 투이메일 집어넣기
+	         // 집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
+	         mapper.donate(bdlist);
+	      }
+
+	      return "redirect:donation";
+	   }
 	
 	
 	//받은 헌혈증 보기

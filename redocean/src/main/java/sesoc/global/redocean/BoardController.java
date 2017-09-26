@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import sesoc.global.redocean.dao.BloodDao;
 import sesoc.global.redocean.dao.BoardDao;
 import sesoc.global.redocean.dao.ReplyDao;
 import sesoc.global.redocean.util.PageNavigator;
@@ -332,5 +333,31 @@ public class BoardController {
 		System.out.println(reply);
 		return reply;
 	}
+	
+	BloodDao map;
+	   //내가 기부한 글 리스트 보기-
+	   @RequestMapping("selectDonattion")
+	   public String selectDonation(
+	         HttpSession ss
+	         , Model m) {
+	      //세션에서 이메일 가져옴
+	      String email = (String) ss.getAttribute("email");
+	      //헌혈증 디비에서 boardnum 리스트 가져오기
+	      map = sqlsession.getMapper(BloodDao.class);
+	      //가져와 담기
+	      ArrayList<String>list = map.selectBoardnum(email);
+	      System.out.println(list);
+	      
+	      //포문에서 돌려서 글번호 뽑아내 맵에다 담기
+	      mapper = sqlsession.getMapper(BoardDao.class);
+	      ArrayList<Mainboard> boardlist = new ArrayList<>();
+	      for (int i = 0; i < list.size(); i++) {
+	         boardlist = mapper.selectboardlist(list.get(i));
+	      }
+	      System.out.println(boardlist);
+	      //모델에 담아 보냄
+	      m.addAttribute("boardlist", boardlist);
+	      return "";
+	   }
 		
 }
