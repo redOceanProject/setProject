@@ -10,6 +10,9 @@ public interface BloodDao {
 
 	// 헌혈증 리스트
 	public ArrayList<Bdcard> selectBdlist(String email);
+	
+	// 헌혈증 리스트2 (사용가능 헌혈증 리스트)
+	public ArrayList<Bdcard> selectBdlist2(String email);
 
 	// 헌혈증 선택
 	public Bdcard select(String num);

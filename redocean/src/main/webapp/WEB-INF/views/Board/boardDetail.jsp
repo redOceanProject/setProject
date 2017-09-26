@@ -12,6 +12,7 @@
 <link href="css/responsive.css" rel="stylesheet">
 <link href="css/bdcard5.css" rel="stylesheet">
 <link href="css/cordLine.css" rel="stylesheet">
+<link href="css/animate2.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
 <link href="css/color-themes/red-theme.css" rel="stylesheet">
@@ -83,7 +84,7 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script>
 $(document).ready(function() {
-	$('#bt6').on('click', test6);
+	$('#bt6').on('click', selectBdlist2);
 	$('#cheerUpButton').on('click', sendSlcBdc);
 });
 
@@ -106,15 +107,16 @@ function appendTable(bdbar_num) {
 	$('#'+bdbar_num).html(''); 
 }
 
-function test6() {
+// 헌혈증 목록 출력
+function selectBdlist2() {
 	$.ajax({
-		url : 'test6',
+		url : 'selectBdlist2',
 		type : 'GET',
 		dataType : 'json',
 		success : function(msg) {
 			var txt = "";
 			for(var i in msg.bd) {
-				txt += '<div id="'+msg.bd[i].bdbar_num+'" class="mimage" onclick="appendTable('+msg.bd[i].bdbar_num+')">';
+				txt += '<div id="'+msg.bd[i].bdbar_num+'" class="mimage animated bounceInDown" onclick="appendTable('+msg.bd[i].bdbar_num+')">';
 				txt += '<img src="images/bdcardBlank.png" style="width: 300px; height: auto;">';
 				txt += '<div class="mtextN mcardLeft mcardLine1">';
 				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].name+'" readonly></div>';
@@ -132,6 +134,7 @@ function test6() {
 				txt += "<br><br>";
 				}
  		$('#output').append(txt);
+		$('#bt6').attr("disabled", true); // 버튼 한 번 누르면 못 누르게
 		},
 		error : function(e) {
 			alert('실패 : ' + JSON.stringify(e));
@@ -309,13 +312,13 @@ function sendSlcBdc() {
                                 </div>
                                 <!-- 선택된 헌혈증 번호 리스트 출력 -->
                                 <div class="btn-column col-md-6 col-sm-6 col-xs-12">
-                                	<div class="btn-column col-md-6 col-sm-6 col-xs-12" style="vertical-align: top;">
+<!--                                 	<div class="btn-column col-md-6 col-sm-6 col-xs-12" style="vertical-align: top;"> -->
 									<div id="selectedTable" style="float: left;">
 									
 									</div>
 									
-										<input id="cheerUpButton" type="button" class="theme-btn btn-style-four" style="float:right;" value="cheer up">
-									</div>
+										<div><input id="cheerUpButton" type="button" class="theme-btn btn-style-four" style="float:right;" value="cheer up"></div>
+<!-- 									</div> -->
                                 </div>
                             </div>
                             <ul class="count">

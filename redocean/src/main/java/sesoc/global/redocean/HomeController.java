@@ -73,4 +73,9 @@ public class HomeController {
 		
 	}
 	
+	// 에러 페이지
+	@RequestMapping(value="somethingWrong")
+	public String somethingWrong() {
+		return "somethingWrong";
+	}
 }

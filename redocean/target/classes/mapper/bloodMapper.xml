@@ -7,16 +7,67 @@
 <mapper namespace="sesoc.global.redocean.dao.BloodDao">
 	<!-- bdcard 리스트 -->
 	<select id="selectBdlist" parameterType="string" resultType="bdcard">
-		SELECT * FROM bdcard
+		SELECT
+			bdcardnum
+			, consituent
+			, btype
+			, bdbar_num
+			, bdbirth
+			, gender
+			, name
+			, to_char(bddate, 'yyyy.mm.dd') bddate
+			, bdcenter
+			, email
+			, status
+			, bloodvolume
+			, toemail
+		FROM bdcard
 		WHERE email = #{email}
 		<!-- AND toemail IS NULL 널만 체크해서 가져옴/아니면 남에게 준거니 검색되면 안됨 -->
 		ORDER BY bddate DESC
 
 	</select>
+	<!-- bacard 리스트2 (사용가능한 헌혈증 리스트) -->
+	<select id="selectBdlist2" parameterType="string" resultType="bdcard">
+		SELECT
+			bdcardnum
+			, consituent
+			, btype
+			, bdbar_num
+			, bdbirth
+			, gender
+			, name
+			, to_char(bddate, 'yyyy.mm.dd') bddate
+			, bdcenter
+			, email
+			, status
+			, bloodvolume
+			, toemail
+		FROM bdcard
+		WHERE email = #{email} and toemail is null
+		<!-- AND toemail IS NULL 널만 체크해서 가져옴/아니면 남에게 준거니 검색되면 안됨 -->
+		ORDER BY bddate DESC
+
+	</select>
+	
 	<!-- bdcard 리스트중 하나만 따옴 -->
 	<select id="select" parameterType="string" resultType="bdcard">
-		SELECT *
-		FROM bdcard WHERE bdbar_num = #{num}
+		SELECT
+			bdcardnum
+			, consituent
+			, btype
+			, bdbar_num
+			, bdbirth
+			, gender
+			, name
+			, to_char(bddate, 'yyyy.mm.dd') bddate
+			, bdcenter
+			, email
+			, status
+			, bloodvolume
+			, toemail
+		FROM bdcard
+		WHERE bdbar_num = #{num}
 	</select>
 	<!-- 성분헌혈 -->
 	<select id="alamsung" parameterType="string" resultType="string">
@@ -34,14 +85,30 @@
 	</select>
 
 	<update id="donate" parameterType="map">
-		UPDATE bdcard
-		SET toemail = #{toEmail}
-		WHERE bdbar_num = #{bdbar_num}
-	</update>
+      update bdcard set
+            status = '2'
+            , toemail = #{toEmail}
+         where
+           bdbar_num= #{bdbar_num}      
+   </update>
 
 	<!-- bdcard 리스트 -->
 	<select id="recivedlist" parameterType="string" resultType="bdcard">
-		SELECT * FROM bdcard
+		SELECT
+			bdcardnum
+			, consituent
+			, btype
+			, bdbar_num
+			, bdbirth
+			, gender
+			, name
+			, to_char(bddate, 'yyyy.mm.dd') bddate
+			, bdcenter
+			, email
+			, status
+			, bloodvolume
+			, toemail
+		FROM bdcard
 		WHERE toemail = #{toemail}
 		ORDER BY bddate DESC
 

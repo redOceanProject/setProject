@@ -60,7 +60,7 @@ public class BloodController {
 	            if (bdcard.getStatus()==1) {   
 	               Registerlist.add(bdcard);
 	               
-	               System.out.println(bdcard);
+	               System.out.println("등록한 헌혈증: "+bdcard);
 	            }
 	         }
 	         m.addAttribute("RegisterList", Registerlist);
@@ -70,7 +70,7 @@ public class BloodController {
 	      for (Bdcard bdcard : list) {
 	            if (bdcard.getStatus()==2) {   
 	               Usedlist.add(bdcard);
-	               System.out.println(bdcard);
+	               System.out.println("사용한 헌혈증: "+bdcard);
 	            }
 	         }
 	         m.addAttribute("usedList", Usedlist);
@@ -152,16 +152,28 @@ public class BloodController {
 		HashMap<String, Object> map = new HashMap<>();
 		
 		String email = (String) ss.getAttribute("email");
-		System.out.println(email);
 		mapper = sqlsession.getMapper(BloodDao.class);
 		ArrayList<Bdcard> bd = mapper.selectBdlist(email);
 		m.addAttribute("bdlist", bd);
-		System.out.println(bd);
 		
 		map.put("bd", bd);
-		map.put("message", "성공적으로 리턴됨");
 		
-		// 여기서 데이터를 넘기면 java는 끝
+		return map;
+	}
+	
+	// 헌혈증 목록 불러오기2 (사용가능 헌혈증만)
+	@ResponseBody
+	@RequestMapping("/selectBdlist2")
+	public HashMap<String, Object> selectBdlist2(HttpSession ss, Model m) {
+		HashMap<String, Object> map = new HashMap<>();
+		
+		String email = (String) ss.getAttribute("email");
+		mapper = sqlsession.getMapper(BloodDao.class);
+		ArrayList<Bdcard> bd = mapper.selectBdlist2(email);
+		m.addAttribute("bdlist", bd);
+		
+		map.put("bd", bd);
+		
 		return map;
 	}
 
@@ -170,18 +182,18 @@ public class BloodController {
 	@RequestMapping(value = "send")
 	public String send(
 			@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-			, String toEmail, int boardnum) {
+			, String toEmail, String boardnum) {
 		mapper = sqlsession.getMapper(BloodDao.class);
 		
 		System.out.println(bdbar_num.toString());
 		System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다"+toEmail);
-		System.out.println("보드넘 나와라"+boardnum);
 		
 		for (int i = 0; i < bdbar_num.size(); i++) {
 			// map에 담아 가져오기
 			Map<String, String> bdlist = new HashMap<>();
 			bdlist.put("bdbar_num", bdbar_num.get(i));
 			bdlist.put("toEmail", toEmail);
+			bdlist.put("boardnum", boardnum);
 			//투이메일 집어넣기
 			//집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
 			mapper.donate(bdlist);

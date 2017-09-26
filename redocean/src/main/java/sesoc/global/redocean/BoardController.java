@@ -332,7 +332,5 @@ public class BoardController {
 		System.out.println(reply);
 		return reply;
 	}
-	
-
 		
 }
