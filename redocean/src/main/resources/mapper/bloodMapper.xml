@@ -114,6 +114,13 @@
 
 	</select>
 	
+	<!-- 헌혈증 등록하기 -->
+	<update id="register" parameterType="map">
+      UPDATE bdcard SET status = '1', email = #{email}
+      WHERE
+      bdbar_num = #{bdnum}
+   	</update>
+	
 	<select id="selectBoardnum" parameterType="string" resultType="string">
       SELECT DISTINCT boardnum
       FROM bdcard

@@ -61,7 +61,7 @@
                                 	</c:if>
                                 	<c:if test="${email != null}">
                                 		<li><a href="logout">${name}..로그아웃</a></li>
-                                		<li><a href="myPage">마이페이지</a></li>
+                                		<li><a href="barcode">헌혈증 등록</a></li>
                                     	<li><a href="write">사연 올리기</a></li>
                                     </c:if>
                                 </ul>
@@ -93,7 +93,7 @@
                                 </c:if>
                                 <c:if test="${email != null}">
                                 	<li><a href="logout">${name}..로그아웃</a></li>
-                                	<li><a href="myPage">마이페이지</a></li>
+                                	<li><a href="barcode">헌혈증 등록</a></li>
                                    	<li><a href="write">사연 올리기</a></li>
                                 </c:if>
                             </ul>
@@ -166,20 +166,6 @@
     
     
     
-    <!--Main Footer-->
-	<footer class="main-footer"> 
-		<div class="footer-bottom">
-			<div class="auto-container">
-				<div class="row clearfix">
-					<div class="col-md-6 col-sm-6 col-xs-12">
-						<div class="copyright">
-							All Right Researved <a href="#">RedOceans</a> &copy; 2017
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
     
 </div>
 <!--End pagewrapper-->

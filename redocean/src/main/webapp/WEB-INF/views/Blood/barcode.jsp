@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -96,8 +95,8 @@
 											<li><a href="login">로그인</a></li>
 										</c:if>
 										<c:if test="${email != null}">
-											<li><a href="logout">로그아웃</a></li>
-											<li><a href="#">마이페이지</a></li>
+											<li><a href="logout">${name}..로그아웃</a></li>
+											<li><a href="myPage">마이페이지</a></li>
 											<li><a href="write">사연 올리기</a></li>
 										</c:if>
 									</ul>
@@ -129,8 +128,8 @@
 										<li><a href="login">로그인</a></li>
 									</c:if>
 									<c:if test="${email != null}">
-										<li><a href="logout">로그아웃</a></li>
-										<li><a href="#">마이페이지</a></li>
+										<li><a href="logout">${name}..로그아웃</a></li>
+										<li><a href="myPage">마이페이지</a></li>
 										<li><a href="write">사연 올리기</a></li>
 									</c:if>
 								</ul>

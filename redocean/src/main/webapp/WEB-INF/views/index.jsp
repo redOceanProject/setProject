@@ -63,6 +63,7 @@
                                 	<c:if test="${email != null}">
                                 		<li><a href="logout">${name}..로그아웃</a></li>
                                 		<li><a href="myPage">마이페이지</a></li>
+                                		<li><a href="barcode">헌혈증 등록</a></li>
                                     	<li><a href="write">사연 올리기</a></li>
                                     </c:if>
                                 </ul>
@@ -95,6 +96,7 @@
                                 <c:if test="${email != null}">
                                 	<li><a href="logout">${name}..로그아웃</a></li>
                                 	<li><a href="#">마이페이지</a></li>
+                                	<li><a href="barcode">헌혈증 등록</a></li>
                                    	<li><a href="write">사연 올리기</a></li>
                                 </c:if>
                             </ul>
@@ -105,7 +107,6 @@
             </div>
         </div>
         <!--End Sticky Header-->
-
 		</header>
 		<!--End Main Header -->
 
@@ -116,7 +117,7 @@
 			<div class="tp-banner-container">
 				<div class="tp-banner">
 					<div class="overlay-slide">
-						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/X8QyN-ndnUc?rel=0&autoplay=1&amp;loop=1"></iframe>
+						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/X8QyN-ndnUc?rel=0&autoplay=1;playlist=X8QyN-ndnUc"></iframe>
 					</div>
 
 				</div>

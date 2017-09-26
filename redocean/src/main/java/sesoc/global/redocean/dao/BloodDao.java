@@ -32,4 +32,7 @@ public interface BloodDao {
 	
 	//헌혈증에서 boardnum 가져오기(중복제거)
 	   public ArrayList<String> selectBoardnum(String email);
+	   
+	 //헌혈증 등록하기
+		public int register(Map<String, String>map );
 }

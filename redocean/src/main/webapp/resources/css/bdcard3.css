@@ -64,7 +64,7 @@ input.cardText {
 	font-family:'Nanum Barun Gothic';
 /* 	font-weight:bold; */
 	font-size:17pt;
-	width:130px;
+	width:135px; /*헌혈증 텍스트 크기*/
 	height:22px;
 	border:0;
 }
