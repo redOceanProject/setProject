@@ -176,7 +176,7 @@
 		</if>
 		)
 		values (
-		mainboardnum_seq.nextval
+		SEQ_mainboard_boardnum.nextval
 		,#{email}
 		,#{name}
 		,#{title}
