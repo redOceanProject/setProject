@@ -86,6 +86,7 @@
 $(document).ready(function() {
 	$('#bt6').on('click', selectBdlist2);
 	$('#cheerUpButton').on('click', sendSlcBdc);
+// 	$('#btT').on('click', testDragon);
 });
 
 function selectTable(bdbar_num) {
@@ -109,6 +110,11 @@ function appendTable(bdbar_num) {
 
 // 헌혈증 목록 출력
 function selectBdlist2() {
+	
+	if ('${bd}.size()'== 0) {
+		alert('보유한 헌혈증이 없습니다.');		
+		
+	}
 	$.ajax({
 		url : 'selectBdlist2',
 		type : 'GET',
@@ -157,11 +163,16 @@ function sendSlcBdc() {
 	var t = {	valueArrTest: test, toEmail : toEmail, boardnum : boardnum};
 	console.log(t);
 	
+	if ('${board.email}'=='${email}'){
+		alert('자신의 사연에는 기부할 수 없습니다.');
+		
+	} else if ('${board.email}'!='${email}'){
+	
 	$.ajax({
 		url: 'send',
 		type: 'post',
 		data: {	valueArrTest: test, toEmail : toEmail, boardnum : boardnum},
-		//dataType: 'String',
+		//dataType: 'String', // 이거때문에 sucksass로 안 넘어가고 error로 넘어가던 거시여따
 		success : function(present) {
 						      var present = JSON.stringify(present);
 						      var goal = '${board.goal_blood}';
@@ -203,10 +214,14 @@ function sendSlcBdc() {
 	}); */
 	
 }
-
+}
+// function testDragon() {
+// 	alert('${bd.Bdcard}');
+// }
 </script>
 </head>
 <body>
+<div><input type="button" id="btT" value="시험용"></div>
 <div class="page-wrapper">
 
 		<!-- Preloader -->

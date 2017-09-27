@@ -188,6 +188,8 @@ public class BloodController {
 		m.addAttribute("bdlist", bd);
 
 		map.put("bd", bd);
+		
+		System.out.println(bd);
 
 		return map;
 	}
