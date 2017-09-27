@@ -193,5 +193,13 @@
 	<select id="selectboardlist" parameterType="string" resultType="mainboard">
        SELECT * FROM mainboard WHERE boardnum = #{boardnum}
     </select>
+    
+     	<!-- 기부받은 헌혈증 수만큼  -->
+ <!-- 	<update id="plus" parameterType="int">
+		UPDATE mainboard
+		SET
+		blood_present = blood_present+1
+		WHERE boardnum = #{num}
+	</update> -->
 	
 </mapper>

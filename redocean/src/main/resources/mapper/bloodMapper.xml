@@ -127,6 +127,13 @@
       WHERE email = #{email}
       AND boardnum is not null
    </select>
+   
+   <update id="plus" parameterType="string">
+		UPDATE mainboard
+		SET
+		blood_present = blood_present+1
+		WHERE boardnum = #{num}
+	</update>
 
 
 </mapper>

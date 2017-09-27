@@ -359,5 +359,19 @@ public class BoardController {
 	      m.addAttribute("boardlist", boardlist);
 	      return "";
 	   }
+	   
+	   @RequestMapping("plus")
+	   public String plus(
+	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
+	         , String boardnum){
+	      mapper = sqlsession.getMapper(BoardDao.class);
+	      System.out.println("오홋");
+	      int num = Integer.parseInt(boardnum); 
+	      for (int i = 0; i < bdbar_num.size(); i++) {
+	         mapper.plus(num);
+	         
+	      }
+	      return "";
+	   }
 		
 }

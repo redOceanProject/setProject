@@ -166,9 +166,21 @@ function sendSlcBdc() {
 			"valueArrTest": test, toEmail : toEmail, boardnum : boardnum
 		},
 		dataType: 'String',
-		success : function() {
-			alert('저장되옸소');
-		},
+		success : function checkBlood() {
+						 alert('가나다');
+						      var present = '${board.blood_present}';
+						      var goal = '${board.goal_blood}';
+						      if (present==goal) {
+						         $.ajax({
+						            url : 'change',
+						            type : 'GET',
+						            success : function(msg){
+						               alert('기부 완료되었습니다. 감사합니다.');
+						            }
+						         });
+						      }
+						   }
+		,
 		error : function(request,status,error) {
 			alert(JSON.stringify(request,status,error));
 		}

@@ -40,4 +40,7 @@ public interface BoardDao {
 	//사연 작성
 	public int write(Mainboard mainboard);
 	
+	//현재 수량 증가
+	public int plus(int num);
+	
 }
