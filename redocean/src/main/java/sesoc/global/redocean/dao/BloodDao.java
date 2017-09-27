@@ -10,7 +10,7 @@ public interface BloodDao {
 
 	// 헌혈증 리스트
 	public ArrayList<Bdcard> selectBdlist(String email);
-	
+
 	// 헌혈증 리스트2 (사용가능 헌혈증 리스트)
 	public ArrayList<Bdcard> selectBdlist2(String email);
 
@@ -23,16 +23,21 @@ public interface BloodDao {
 
 	// 전혈 하고 휴지기 알아보기
 	public String alamjeon(String id);
-	
-	//doanate
-	public int donate(Map<String, String>bdlist);
 
-	//받은 헌혈증 리스트
+	// doanate
+	public int donate(Map<String, String> bdlist);
+
+	// 받은 헌혈증 리스트
 	public ArrayList<Bdcard> recivedlist(String toemail);
+
+	// 헌혈증에서 boardnum 가져오기(중복제거)
+	public ArrayList<String> selectBoardnum(String email);
+
+	// 헌혈증 등록하기
+	public int register(Map<String, String> map);
+
+	public int plus(String boardnum);
 	
-	//헌혈증에서 boardnum 가져오기(중복제거)
-	   public ArrayList<String> selectBoardnum(String email);
-	   
-	 //헌혈증 등록하기
-		public int register(Map<String, String>map );
+	//현재 present 구하기
+	public int selectpresent(int boardnum);
 }

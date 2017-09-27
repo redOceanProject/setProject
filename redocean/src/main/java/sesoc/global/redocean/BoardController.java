@@ -124,6 +124,7 @@ public class BoardController {
 			int boardnum){
 		//헌혈증 남은 갯수는 클라단에서 처리
 		//여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
+		System.out.println(boardnum);
 		mapper = sqlsession.getMapper(BoardDao.class);
 		mapper.change(boardnum);
 		
@@ -360,7 +361,7 @@ public class BoardController {
 	      return "";
 	   }
 	   
-	   @RequestMapping("plus")
+/*	   @RequestMapping("plus")
 	   public String plus(
 	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
 	         , String boardnum){
@@ -372,6 +373,6 @@ public class BoardController {
 	         
 	      }
 	      return "";
-	   }
+	   }*/
 		
 }

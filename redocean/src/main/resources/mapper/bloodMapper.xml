@@ -88,6 +88,7 @@
       update bdcard set
             status = '2'
             , toemail = #{toEmail}
+            , boardnum = #{boardnum}
          where
            bdbar_num= #{bdbar_num}      
    </update>
@@ -128,12 +129,17 @@
       AND boardnum is not null
    </select>
    
-   <update id="plus" parameterType="string">
+   <update id="plus" parameterType="string" >
 		UPDATE mainboard
 		SET
 		blood_present = blood_present+1
-		WHERE boardnum = #{num}
+		WHERE boardnum = #{boardnum}
 	</update>
-
+	
+	<select id="selectpresent" resultType="int" parameterType="int">
+		SELECT blood_present
+		FROM mainboard
+		WHERE boardnum = #{boardnum}
+	</select>
 
 </mapper>

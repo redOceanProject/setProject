@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -162,9 +163,7 @@ public class BloodController {
 	// 헌혈증 목록 불러오기
 	@ResponseBody
 	@RequestMapping("/test6")
-	public HashMap<String, Object> test6(
-			HttpSession ss
-			, Model m) {
+	public HashMap<String, Object> test6(HttpSession ss, Model m) {
 		HashMap<String, Object> map = new HashMap<>();
 
 		String email = (String) ss.getAttribute("email");
@@ -196,13 +195,9 @@ public class BloodController {
 	// 헌혈증 보내기
 	@ResponseBody
 	@RequestMapping(value = "send")
-	public String send(
-			@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-			, String toEmail
-			, int boardnum
-			) {
+	public int send(@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num, String toEmail, int boardnum,
+			HttpServletResponse response) {
 		mapper = sqlsession.getMapper(BloodDao.class);
-
 		String boardnumber = Integer.toString(boardnum);
 		System.out.println(bdbar_num.toString());
 		System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다" + toEmail);
@@ -214,12 +209,15 @@ public class BloodController {
 			bdlist.put("toEmail", toEmail);
 			bdlist.put("boardnum", boardnumber);
 			// 투이메일 집어넣기
-			// 집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
 			mapper.donate(bdlist);
-			System.out.println(bdlist);
+			int num = mapper.plus(boardnumber);
 		}
+		int present = mapper.selectpresent(boardnum);
+		System.out.println("present:" + present);
 
-		return "redirect:donation";
+		response.setHeader("content-type", "text/html; charset=utf-8");
+		// present
+		return present;
 	}
 
 	// 받은 헌혈증 보기

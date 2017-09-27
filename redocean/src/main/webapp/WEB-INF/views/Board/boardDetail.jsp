@@ -116,7 +116,7 @@ function selectBdlist2() {
 		success : function(msg) {
 			var txt = "";
 			for(var i in msg.bd) {
-				txt += '<div id="'+msg.bd[i].bdbar_num+'" class="mimage animated bounceInDown" onclick="appendTable('+msg.bd[i].bdbar_num+')">';
+				txt += '<div id="'+msg.bd[i].bdbar_num+'" class="mimage animated bounceInDown" onclick="appendTable('+ '\'' +  msg.bd[i].bdbar_num + '\'' + ')">';
 				txt += '<img src="images/bdcardBlank.png" style="width: 300px; height: auto;">';
 				txt += '<div class="mtextN mcardLeft mcardLine1">';
 				txt += '<input type="text" class="mcardText" value="'+msg.bd[i].name+'" readonly></div>';
@@ -149,39 +149,41 @@ function sendSlcBdc() {
 	var toEmail = '${board.email}';
 	var boardnum = '${board.boardnum}';
 	for (var i = 0; i < fields.length; i++) {
-		 alert(fields[i].innerHTML);
-		 test.push(fields[i].innerHTML);
+		 test.push($(fields[i]).html());
 	}
 	
-	console.log(test);
-	console.log(toEmail);
-	
 	$.ajaxSettings.traditional = true;
+	
+	var t = {	valueArrTest: test, toEmail : toEmail, boardnum : boardnum};
+	console.log(t);
 	
 	$.ajax({
 		url: 'send',
 		type: 'post',
-		data: {
-			"valueArrTest": test, toEmail : toEmail, boardnum : boardnum
-		},
-		dataType: 'String',
-		success : function checkBlood() {
-						 alert('가나다');
-						      var present = '${board.blood_present}';
+		data: {	valueArrTest: test, toEmail : toEmail, boardnum : boardnum},
+		//dataType: 'String',
+		success : function(present) {
+						      var present = JSON.stringify(present);
 						      var goal = '${board.goal_blood}';
+						      alert('present :'+present);
+						      alert('goal:'+goal)
 						      if (present==goal) {
 						         $.ajax({
 						            url : 'change',
 						            type : 'GET',
 						            success : function(msg){
 						               alert('기부 완료되었습니다. 감사합니다.');
+						               
 						            }
 						         });
 						      }
 						   }
+						   
 		,
-		error : function(request,status,error) {
-			alert(JSON.stringify(request,status,error));
+		error : 
+			function(request,status,error) {
+			alert('에러다'+ status +' ,' + JSON.stringify(request));
+			console.log(error);
 		}
 	});
 	// 이메일만 따로 보내보기
