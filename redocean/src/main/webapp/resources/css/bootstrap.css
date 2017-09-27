@@ -4017,6 +4017,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-tabs {
   border-bottom: 1px solid #ddd;
+  width: 85%; /*나의 사연페이지에서 밑줄*/
 }
 .nav-tabs > li {
   float: left;

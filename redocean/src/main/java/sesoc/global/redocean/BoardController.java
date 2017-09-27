@@ -61,6 +61,11 @@ public class BoardController {
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
 		ArrayList<Mainboard> list = mapper.select(search, rb);
 
+		for(Mainboard board : list) {
+			String str = board.getContent().replaceAll("\r\n", "<br>");
+			board.setContent(str);
+		}
+		
 		model.addAttribute("boardList", list);
 		model.addAttribute("navi", navi);
 
@@ -79,6 +84,9 @@ public class BoardController {
 		Mainboard board = mapper.selectOne(boardnum);
 		// 히트수 증가
 		mapper.hitCount(boardnum);
+		
+		String str = board.getContent().replaceAll("\r\n", "<br>");
+		board.setContent(str);
 		
 		//목료 헌혈증을 받았으면 여기로 
 		if(board.getGoal_blood() == board.getBlood_present()){
@@ -124,9 +132,9 @@ public class BoardController {
 			int boardnum){
 		//헌혈증 남은 갯수는 클라단에서 처리
 		//여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
-		System.out.println(boardnum);
 		mapper = sqlsession.getMapper(BoardDao.class);
-		mapper.change(boardnum);
+		String bodnum = String.valueOf(boardnum);
+		mapper.change(bodnum);
 		
 		return "Board/change";
 	}
@@ -296,8 +304,8 @@ public class BoardController {
 			, HttpSession session
 			, MultipartFile upload
 			) {
-		String str = mainboard.getContent().replaceAll("\r\n", "<br>");
-		mainboard.setContent(str);
+		/*String str = mainboard.getContent().replaceAll("\r\n", "<br>");
+		mainboard.setContent(str);*/
 		String email = (String)session.getAttribute("email");
 		mainboard.setEmail(email);
 		String name = (String) session.getAttribute("name");
@@ -361,7 +369,7 @@ public class BoardController {
 	      return "";
 	   }
 	   
-/*	   @RequestMapping("plus")
+	   /*@RequestMapping("plus")
 	   public String plus(
 	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
 	         , String boardnum){

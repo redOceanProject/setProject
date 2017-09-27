@@ -20,12 +20,14 @@
 				replynum
 				,email
 				,text
+				,inputdate
 				,boardnum
 			) 
 			values(
 				SEQ_reply_replynum.nextval
 				,#{email}
 				,#{text}
+				,sysdate
 				,#{boardnum}
 			)
 			<!-- inputdate 자동으로 넣게 설정 안되어 있음ㅋ -->

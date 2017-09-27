@@ -1929,6 +1929,7 @@ img{
 	border:1px solid #f0f0f0;
 	border-top:0px;
 	background-color:#ffffff;
+	width: 68.5%; /*나의 사연에서 lower-box크기*/
 }
 
 .causes-block .inner-box .lower-box .content{

@@ -157,7 +157,6 @@
 						</div>
 						<!--Form Portlet-->
 						<div class="form-portlet" style="text-align: center;">
-							<h3>Cheer UP</h3>
 							<div class="row clearfix" style="text-align: center;">
 
 								<div id="barcodebk">

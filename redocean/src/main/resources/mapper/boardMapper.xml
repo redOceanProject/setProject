@@ -140,7 +140,7 @@
 	</select>
 
 	<!-- 게시글 목표달성-->
-	<update id="change" parameterType="int">
+	<update id="change" parameterType="string">
 		UPDATE mainboard
 		SET
 		status = 1
@@ -169,7 +169,7 @@
 	
 	<!-- 사연작성하기 -->
  	<insert id="write" parameterType="mainboard">
- 		insert into mainboard (boardnum,email,name,title,content,goal_date,goal_blood
+ 		insert into mainboard (boardnum,email,name,title,content,inputdate,goal_date,goal_blood
 		<if test="originalfile != null">
 		, originalfile
 		, savedfile
@@ -181,6 +181,7 @@
 		,#{name}
 		,#{title}
 		,#{content}
+		,sysdate 
 		,#{goal_date}
 		,#{goal_blood}
 		<if test="originalfile != null">

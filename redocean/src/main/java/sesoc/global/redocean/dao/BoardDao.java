@@ -29,7 +29,7 @@ public interface BoardDao {
 	public Mainboard selectlist();
 	
 	//게시글 목표달성
-	public int change(int boardnum);
+	public int change(String boardnum);
 	
 	//사연보낸거 리스트 읽어오기
 	   public ArrayList<Mainboard> selectboardlist(String boardnum);

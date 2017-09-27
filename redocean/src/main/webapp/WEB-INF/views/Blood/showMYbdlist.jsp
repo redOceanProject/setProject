@@ -134,6 +134,7 @@
 											<li><a data-toggle="tab" href="#menu1">등록한 헌혈증</a></li>
 											<li><a data-toggle="tab" href="#menu2">보낸 헌혈증</a></li>
 											<li><a data-toggle="tab" href="#menu3">받은 헌혈증</a></li>
+											<li><a href="barcode">헌혈증 등록하기</a></li>
 										</ul>
 
 										<div class="tab-content">
@@ -146,7 +147,7 @@
 																<td>
 																	<div class="mimage">
 																		<c:if test="${bd.status==0}">
-																			<a href = "barcode"><img src="images/bdcardBlank.png"
+																			<a href="barcode"><img src="images/bdcardBlank.png"
 																				style="width: 500px; height: auto;"></a>
 																		</c:if>
 																		<c:if test="${bd.status==1}">
@@ -250,7 +251,7 @@
 											</div>
 
 
-											<!--  -->
+											<!--보낸 헌혈증  -->
 											<div id="menu2" class="tab-pane fade">
 												<div class="bcSector" style="padding-top: 30px;">
 													<table id="table_id">
@@ -305,58 +306,69 @@
 													</table>
 												</div>
 											</div>
-											<div id="menu3" class="tab-pane fade in active">
-												<div class="bcSector" style="padding-top: 30px;">
-													<table id="table_id">
-														<tr>
-															<c:forEach var="bd" items="${getlist}" varStatus="s">
-																<c:if test="${email == bd.toemail}">
-																<td>
-																	<div class="mimage">
-																			<img src="images/bdcardBlank.png"
-																				style="width: 500px; height: auto;">
-																		<div class="mtextN mcardLeft mcardLine1">
-																			<input type="text" class="mcardText"
-																				value="${bd.name}" readonly>
-																		</div>
-																		<div class="mtextBD mcardLeft mcardLine2">
-																			<input type="text" class="mcardText"
-																				value="${bd.bdbirth}" readonly>
-																		</div>
-																		<div class="mtextBT mcardRight mcardLine1">
-																			<input type="text" class="mcardText"
-																				value="${bd.consituent} ${bd.bloodvolume}" readonly>
-																		</div>
-																		<div class="mtextS mcardRight mcardLine2">
-																			<input type="text" class="mcardText"
-																				value="${bd.gender}" readonly>
-																		</div>
-																		<div class="mtextDD mcardLeft  mcardLine3">
-																			<input type="text" class="mcardText"
-																				value="${bd.bddate}" style="width: 170px; top:5px;" readonly>
-																		</div>
-																		<div class="mtextCT mcardLeft mcardLine4">
-																			<input type="text" class="mcardText"
-																				value="${bd.bdcenter}" style="width: 50px; top:7px;"
-																				readonly>
-																		</div>
-																		<div class="mBarcode">
-																			<input type="text" class="mcardBarcode"
-																				value="${bd.bdbar_num}" readonly>
-																		</div>
+											
+											
+										<!-- 받은 헌혈증 -->
+                                 <div id="menu3" class="tab-pane fade">
+                                    <div class="bcSector" style="padding-top: 30px;">
+                                       <table id="table_id">
+                                          <tr>
+                                             <c:forEach var="bd" items="${getlist}" varStatus="s">
+                                             <c:set var="bdt" value='FROM:  '></c:set>
+                                                <td>
+                                                   <div class="mimage">
+                                                         <img src="images/bdcardBlank.png"
+                                                            style="width: 500px; height: auto;">
+                                                      <div class="mtextN mcardLeft mcardLine1">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.name}" readonly>
+                                                      </div>
+                                                      <div class="mtextBD mcardLeft mcardLine2">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.bdbirth}" readonly>
+                                                      </div>
+                                                      <div class="mtextBT mcardRight mcardLine1">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.consituent} ${bd.bloodvolume}" readonly>
+                                                      </div>
+                                                      <div class="mtextS mcardRight mcardLine2">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.gender}" readonly>
+                                                      </div>
+                                                      <div class="mtextDD mcardLeft  mcardLine3">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.bddate}" style="width: 170px; top:5px;" readonly>
+                                                      </div>
+                                                      <div class="mtextCT mcardLeft mcardLine4">
+                                                         <input type="text" class="mcardText"
+                                                            value="${bd.bdcenter}" style="width: 50px; top:7px;"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="mBarcode">
+                                                         <input type="text" class="mcardBarcode"
+                                                            value="${bd.bdbar_num}" readonly>
+                                                      </div>
+                                                      <div>
+                                                         <input type="text" class="toemailText"
+                                                            value="${bdt} ${bd.toemail}" style="text-align: center; font-weight:bold;
+                                                            width: 100%; left:5px;" readonly>
+                                                      </div>
 
-																	</div>
-																</td>
-																<c:if test="${s.count%3==0 }">
-																	<tr></tr>
-																</c:if>
-																</c:if>
-															</c:forEach>
-														</tr>
+                                                   </div>
+                                                </td>
+                                                <c:if test="${s.count%3==0 }">
+                                                   <tr></tr>
+                                                </c:if>
+                                             </c:forEach>
+                                          </tr>
 
-													</table>
-												</div>
-											</div>
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                                 
+                                 
+											
 										</div>
 									</div>
 								</div>
