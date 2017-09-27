@@ -72,7 +72,6 @@ public class BloodController {
 	      for (Bdcard bdcard : list) {
 	         if (bdcard.getStatus() == 2) {
 	            Usedlist.add(bdcard);
-	            System.out.println(bdcard);
 	         }
 	      }
 	      m.addAttribute("usedList", Usedlist);
@@ -82,7 +81,6 @@ public class BloodController {
 	      ArrayList<Bdcard> getlist = mapper.recivedlist(toemail);
 	      m.addAttribute("getlist", getlist);
 	      System.out.println("내가 받은헌혈증:"+getlist);
-	      System.out.println(toemail);
 	      // 받은 헌혈증
 	      // ArrayList<Bdcard> mlist=mapper.selectAllBdlist();
 	      // m.addAttribute("getlist", mlist);
@@ -220,6 +218,7 @@ public class BloodController {
 			mapper.donate(bdlist);
 			int num = mapper.plus(boardnumber);
 		}
+		System.out.println(boardnum);
 		int present = mapper.selectpresent(boardnum);
 		System.out.println("present:" + present);
 

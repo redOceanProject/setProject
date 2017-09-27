@@ -293,7 +293,7 @@
 																		<div>
 																			<input type="text" class="toemailText"
 																				value="${bdt} ${bd.toemail}" style="text-align: center; font-weight:bold;
-																				width: 100%; left:5px;" readonly>
+																				width: 100%; left:5px; font-size: 15px;" readonly>
 																		</div>
 																	</div></td>
 																<c:if test="${s.count%3==0 }">
@@ -349,10 +349,12 @@
                                                             value="${bd.bdbar_num}" readonly>
                                                       </div>
                                                       <div>
-                                                         <input type="text" class="toemailText"
+                                                        
+                                                      <input type="text" class="toemailText"
                                                             value="${bdt} ${bd.toemail}" style="text-align: center; font-weight:bold;
-                                                            width: 100%; left:5px;" readonly>
+                                                            width: 100%; left:5px; font-size: 15px;" readonly>
                                                       </div>
+                                                      
 
                                                    </div>
                                                 </td>

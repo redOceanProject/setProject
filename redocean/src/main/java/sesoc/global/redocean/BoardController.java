@@ -41,10 +41,10 @@ public class BoardController {
 	SqlSession sqlsession;
 	BoardDao mapper;
 	ReplyDao replyMapper;
-	
+
 	final String uploadPath = "/mainboard_file";
-	
-	//전체사연 게시판에서 전체사연 목록을 보여준다.
+
+	// 전체사연 게시판에서 전체사연 목록을 보여준다.
 	@RequestMapping("boardList")
 	public String boardlist(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchtype", defaultValue = "title") String searchtype,
@@ -61,11 +61,11 @@ public class BoardController {
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
 		ArrayList<Mainboard> list = mapper.select(search, rb);
 
-		for(Mainboard board : list) {
+		for (Mainboard board : list) {
 			String str = board.getContent().replaceAll("\r\n", "<br>");
 			board.setContent(str);
 		}
-		
+
 		model.addAttribute("boardList", list);
 		model.addAttribute("navi", navi);
 
@@ -75,7 +75,7 @@ public class BoardController {
 		return "Board/boardList";
 	}
 
-	//하나의 상세 사연
+	// 하나의 상세 사연
 	@RequestMapping("/boardDetail")
 	public String boardDetail(int boardnum, Model model) {
 		mapper = sqlsession.getMapper(BoardDao.class);
@@ -84,36 +84,35 @@ public class BoardController {
 		Mainboard board = mapper.selectOne(boardnum);
 		// 히트수 증가
 		mapper.hitCount(boardnum);
-		
+
 		String str = board.getContent().replaceAll("\r\n", "<br>");
 		board.setContent(str);
-		
-			String fullPath = uploadPath + "/" + board.getSavedfile();
-			try {
-				// 저장된 파일의 MimeType을 확인함. 이미지일 경우 View단에서 바로 출력할 수 있도록!!
-				mime = Files.probeContentType(Paths.get(fullPath));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (mime.contains("image"))
-				model.addAttribute("mimetype", mime);
-			
+
+		String fullPath = uploadPath + "/" + board.getSavedfile();
+		try {
+			// 저장된 파일의 MimeType을 확인함. 이미지일 경우 View단에서 바로 출력할 수 있도록!!
+			mime = Files.probeContentType(Paths.get(fullPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (mime.contains("image"))
+			model.addAttribute("mimetype", mime);
+
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
 		return "Board/boardDetail";
 	}
-	
-	
-	//헌혈증 수량 완성
+
+	// 헌혈증 수량 완성
 	@RequestMapping("/change")
-	public String change(
-			int boardnum){
-		//헌혈증 남은 갯수는 클라단에서 처리
-		//여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
+	public String change(int boardnum) {
+		// 헌혈증 남은 갯수는 클라단에서 처리
+		// 여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
 		mapper = sqlsession.getMapper(BoardDao.class);
-		String bodnum = String.valueOf(boardnum);
-		mapper.change(bodnum);
-		
+		System.out.println(boardnum);
+//		String bodnum = String.valueOf(boardnum);
+		mapper.change(boardnum);
+
 		return "Board/change";
 	}
 
@@ -124,11 +123,11 @@ public class BoardController {
 	 * @param model
 	 * @return
 	 */
-	//사연수정 이동 
+	// 사연수정 이동
 	@RequestMapping("/boardUpdate")
 	public String boardUpdate(int boardnum, Model model, Mainboard board) {
 		// session에서 아이디 꺼내는 작업 필요
-		
+
 		mapper = sqlsession.getMapper(BoardDao.class);
 		board = mapper.selectOne(boardnum);
 		String str = board.getContent().replaceAll("<br>", "\r\n");
@@ -145,15 +144,14 @@ public class BoardController {
 	 * @param model
 	 * @return
 	 */
-	//사연 수정 처리 
+	// 사연 수정 처리
 	@RequestMapping(value = "/boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(Mainboard board, MultipartFile upload, HttpSession session, RedirectAttributes rttr) {
-		
-		
-		//줄 바꿈 
+
+		// 줄 바꿈
 		String str = board.getContent().replaceAll("\r\n", "<br>");
 		board.setContent(str);
-		
+
 		// 수정할 글이 로그인한 본인 글인지 확인
 		// (만약 글보기에서 자신의 글이 아니더라도 수정버튼이 있다면 아래의 코드 필요)
 		String email = (String) session.getAttribute("email");
@@ -196,8 +194,8 @@ public class BoardController {
 
 		return "redirect:boardDetail";
 	}
-	
-	//사연 삭제
+
+	// 사연 삭제
 	@RequestMapping("/boardDelete")
 	public String boardDelete(int boardnum, Model model, HttpSession session) {
 		// 삭제할 글이 로그인한 본인 글인지 확인
@@ -221,42 +219,36 @@ public class BoardController {
 
 		return "redirect:/";
 	}
-	
-	
 
-	
-	//다운로드
+	// 다운로드
 	@RequestMapping(value = "download", method = RequestMethod.GET)
-	public String fileDownload(
-			int boardnum
-			, Model model
-			, HttpServletResponse response
-			) {
+	public String fileDownload(int boardnum, Model model, HttpServletResponse response) {
 		BoardDao m = sqlsession.getMapper(BoardDao.class);
 		Mainboard board = m.selectOne(boardnum);
-			
-		//원래의 파일명
+
+		// 원래의 파일명
 		String originalfile = new String(board.getSavedfile());
-		//저장된 파일 경로
+		// 저장된 파일 경로
 		String fullPath = uploadPath + "/" + board.getSavedfile();
 
 		try {
-			response.setHeader("Content-Disposition", " attachment;filename="+ URLEncoder.encode(originalfile, "UTF-8"));			} catch (UnsupportedEncodingException e) {
+			response.setHeader("Content-Disposition",
+					" attachment;filename=" + URLEncoder.encode(originalfile, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-			
 
-		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+		// 서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
 		FileInputStream filein = null;
 		ServletOutputStream fileout = null;
-			
+
 		try {
 			filein = new FileInputStream(fullPath);
 			fileout = response.getOutputStream();
-				
-			//Spring의 파일 관련 유틸
+
+			// Spring의 파일 관련 유틸
 			FileCopyUtils.copy(filein, fileout);
-				
+
 			filein.close();
 			fileout.close();
 		} catch (IOException e) {
@@ -265,26 +257,21 @@ public class BoardController {
 
 		return null;
 	}
-	
-	
 
-	//사연 작성폼으로 이동
+	// 사연 작성폼으로 이동
 	@RequestMapping(value = "write")
 	public String write() {
 		return "Board/write";
 	}
-		
-		
-	//사연작성 DB처리
+
+	// 사연작성 DB처리
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(
-			Mainboard mainboard
-			, HttpSession session
-			, MultipartFile upload
-			) {
-		/*String str = mainboard.getContent().replaceAll("\r\n", "<br>");
-		mainboard.setContent(str);*/
-		String email = (String)session.getAttribute("email");
+	public String write(Mainboard mainboard, HttpSession session, MultipartFile upload) {
+		/*
+		 * String str = mainboard.getContent().replaceAll("\r\n", "<br>");
+		 * mainboard.setContent(str);
+		 */
+		String email = (String) session.getAttribute("email");
 		mainboard.setEmail(email);
 		String name = (String) session.getAttribute("name");
 		mainboard.setName(name);
@@ -292,73 +279,67 @@ public class BoardController {
 		String savedFilename = FileService.saveFile(upload, uploadPath);
 		mainboard.setOriginalfile(upload.getOriginalFilename());
 		mainboard.setSavedfile(savedFilename);
-		
+
 		BoardDao m = sqlsession.getMapper(BoardDao.class);
 		m.write(mainboard);
 
 		return "redirect:/";
-	}	
-	
-	//댁글 작성하기
+	}
+
+	// 댁글 작성하기
 	@ResponseBody
-	@RequestMapping(value="enroll", produces="application/json;charset=utf-8")
-	public void enroll(Reply reply){
+	@RequestMapping(value = "enroll", produces = "application/json;charset=utf-8")
+	public void enroll(Reply reply) {
 		System.out.println(reply);
 		replyMapper = sqlsession.getMapper(ReplyDao.class);
 		int i = replyMapper.insert(reply);
 		System.out.println(i);
 	}
-	
-	//댓글 출력
-	@RequestMapping(value="getreply")
-	public @ResponseBody ArrayList<Reply> getreply(
-			@RequestParam int boardnum
-			){
+
+	// 댓글 출력
+	@RequestMapping(value = "getreply")
+	public @ResponseBody ArrayList<Reply> getreply(@RequestParam int boardnum) {
 		System.out.println(boardnum);
 		replyMapper = sqlsession.getMapper(ReplyDao.class);
 		ArrayList<Reply> reply = replyMapper.selectAll(boardnum);
 		System.out.println(reply);
 		return reply;
 	}
-	
+
 	BloodDao map;
-	   //내가 기부한 글 리스트 보기-
-	   @RequestMapping("selectDonattion")
-	   public String selectDonation(
-	         HttpSession ss
-	         , Model m) {
-	      //세션에서 이메일 가져옴
-	      String email = (String) ss.getAttribute("email");
-	      //헌혈증 디비에서 boardnum 리스트 가져오기
-	      map = sqlsession.getMapper(BloodDao.class);
-	      //가져와 담기
-	      ArrayList<String>list = map.selectBoardnum(email);
-	      System.out.println(list);
-	      
-	      //포문에서 돌려서 글번호 뽑아내 맵에다 담기
-	      mapper = sqlsession.getMapper(BoardDao.class);
-	      ArrayList<Mainboard> boardlist = new ArrayList<>();
-	      for (int i = 0; i < list.size(); i++) {
-	         boardlist = mapper.selectboardlist(list.get(i));
-	      }
-	      System.out.println(boardlist);
-	      //모델에 담아 보냄
-	      m.addAttribute("boardlist", boardlist);
-	      return "";
-	   }
-	   
-	   /*@RequestMapping("plus")
-	   public String plus(
-	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-	         , String boardnum){
-	      mapper = sqlsession.getMapper(BoardDao.class);
-	      System.out.println("오홋");
-	      int num = Integer.parseInt(boardnum); 
-	      for (int i = 0; i < bdbar_num.size(); i++) {
-	         mapper.plus(num);
-	         
-	      }
-	      return "";
-	   }*/
-		
+
+	// 내가 기부한 글 리스트 보기-
+	@RequestMapping("myDonation")
+	public String selectDonation(HttpSession ss, Model m) {
+		// 세션에서 이메일 가져옴
+		String email = (String) ss.getAttribute("email");
+		// 헌혈증 디비에서 boardnum 리스트 가져오기
+		map = sqlsession.getMapper(BloodDao.class);
+		// 가져와 담기
+		ArrayList<String> list = map.selectBoardnum(email);
+		System.out.println("헌혈증에 있는 글 넘버:"+list);
+
+		// 포문에서 돌려서 글번호 뽑아내 맵에다 담기
+		mapper = sqlsession.getMapper(BoardDao.class);
+		ArrayList<Mainboard> boardlist = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			boardlist = mapper.selectboardlist(list.get(i));
+		}
+		System.out.println("글내용:"+boardlist);
+		// 모델에 담아 보냄
+		m.addAttribute("boardlist", boardlist);
+		return "Member/myDonation";
+	}
+
+	/*
+	 * @RequestMapping("plus") public String plus(
+	 * 
+	 * @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num ,
+	 * String boardnum){ mapper = sqlsession.getMapper(BoardDao.class);
+	 * System.out.println("오홋"); int num = Integer.parseInt(boardnum); for (int
+	 * i = 0; i < bdbar_num.size(); i++) { mapper.plus(num);
+	 * 
+	 * } return ""; }
+	 */
+
 }

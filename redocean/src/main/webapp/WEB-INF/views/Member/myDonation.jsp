@@ -94,26 +94,50 @@
 								<div id="wrapper1" style="padding: 35px; padding-left: 67px;">
 									<div class="container">
 										<div class="title1" style="text-align: center; width: 80%; padding-bottom: 20px;">
-											<h2>나의 헌혈증</h2>
+											<h2>기부 현황</h2>
 										</div>
 										<ul class="nav nav-tabs">
-											<li class="active"><a data-toggle="tab" href="#all">기부현황</a></li>
-											<li><a data-toggle="tab" href="#ing">진행중</a></li>
-											<li><a data-toggle="tab" href="#complete">완료</a></li>
+											<li class="active"><a data-toggle="tab" href="#all">전체 이야기</a></li>
+											<li><a data-toggle="tab" href="#ing">진행 중 이야기</a></li>
+											<li><a data-toggle="tab" href="#complete">완료된 이야기</a></li>
 										</ul>
 
 										<div class="tab-content">
-											<!-- 기부현황 -->
+											<!-- 기부현황 전체 -->
 											<div id="all" class="tab-pane fade in active">
 												<div class="bcSector" style="padding-top: 30px;">
-												
+													<c:forEach var="myList" items="${boardlist}">
+            											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+                											<div class="inner-box">
+                    											<div class="image">
+																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
+                        										</div>
+                        										<div class="lower-box">
+                        											<div class="content">
+                                										<h3><a href="boardDetail?boardnum=${myList.boardnum}">${myList.title}</a></h3> <!--제목-->
+                                										<div class="text">${myList.content}</div><!--내용 미리보기-->
+                                										<div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
+                                    										<div class="bar-inner"> <!--프로그래스 바-->
+                                        										<div class="bar" style="width:<fmt:formatNumber value="${(myList.blood_present)/(myList.goal_blood)*100}" pattern="0"/>%;">
+                                            										<div class="count-box"><span class="count-text" data-speed="2000" data-stop="<fmt:formatNumber value="${(myList.blood_present)/(myList.goal_blood)*100}" pattern="0"/>"></span>%</div>
+                                        										</div>
+                                    										</div>
+                                										</div>
+                                										<div class="causes-info"><strong>헌혈증</strong> ${myList.blood_present} / <span class="theme_color">${myList.goal_blood}</span>
+                                											&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${myList.goal_date}</span>
+                                										</div>
+                            										</div>
+                        										</div>
+                    										</div>
+               											</div>
+                									</c:forEach>
 												</div>
 											</div><!-- end 전체사연 -->
 											
-											<!-- 진행중 -->
+											<!-- 진행중 사연 -->
 											<div id="ing" class="tab-pane fade">
 												<div class="bcSector" style="padding-top: 30px;">
-													<c:forEach var="myList" items="${myList}">
+													<c:forEach var="myList" items="${boardlist}">
 													<c:if test="${myList.blood_present != myList.goal_blood}">
             											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
                 											<div class="inner-box">
@@ -144,10 +168,10 @@
 											</div><!-- end ing -->
 											
 											
-											<!-- 완료 -->
+											<!-- 완료된 사연-->
 											<div id="complete" class="tab-pane fade">
 												<div class="bcSector" style="padding-top: 30px;">
-													<c:forEach var="myList" items="${myList}">
+													<c:forEach var="myList" items="${boardlist}">
 													<c:if test="${myList.blood_present == myList.goal_blood}">
             											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
                 											<div class="inner-box">

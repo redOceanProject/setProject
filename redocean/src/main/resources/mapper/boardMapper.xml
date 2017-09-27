@@ -140,7 +140,7 @@
 	</select>
 
 	<!-- 게시글 목표달성-->
-	<update id="change" parameterType="string">
+	<update id="change" parameterType="int">
 		UPDATE mainboard
 		SET
 		status = 1

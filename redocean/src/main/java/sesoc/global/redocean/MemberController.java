@@ -130,9 +130,9 @@ public class MemberController {
 	}
 	
 	//myDonation로 이동
-	@RequestMapping(value="myDonation",method=RequestMethod.GET)
+	/*@RequestMapping(value="myDonation",method=RequestMethod.GET)
 	public String myDonation(){
 	    return "Member/myDonation";
-	}
+	}*/
 
 }
