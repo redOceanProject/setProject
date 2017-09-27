@@ -88,28 +88,6 @@ public class BoardController {
 		String str = board.getContent().replaceAll("\r\n", "<br>");
 		board.setContent(str);
 		
-		//목료 헌혈증을 받았으면 여기로 
-		if(board.getGoal_blood() == board.getBlood_present()){
-			// 글에 있는 세이브드 파일 판명
-			if (board.getSavedfile() != null) {
-				String fullPath = uploadPath + "/" + board.getSavedfile();
-				try {
-					// 저장된 파일의 MimeType을 확인함. 이미지일 경우 View단에서 바로 출력할 수 있도록!!
-					mime = Files.probeContentType(Paths.get(fullPath));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				if (mime.contains("image"))
-					model.addAttribute("mimetype", mime);
-			}
-			// 모델에 글과 네비 담기
-			model.addAttribute("board", board);
-			return "Board/change";
-		
-		}
-		
-		//아직 목표 헌혈증에 도달하지 못하였을 때
-		if (board.getSavedfile() != null) {
 			String fullPath = uploadPath + "/" + board.getSavedfile();
 			try {
 				// 저장된 파일의 MimeType을 확인함. 이미지일 경우 View단에서 바로 출력할 수 있도록!!
@@ -119,7 +97,7 @@ public class BoardController {
 			}
 			if (mime.contains("image"))
 				model.addAttribute("mimetype", mime);
-		}
+			
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
 		return "Board/boardDetail";
