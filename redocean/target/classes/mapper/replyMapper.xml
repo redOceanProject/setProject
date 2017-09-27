@@ -23,7 +23,7 @@
 				,boardnum
 			) 
 			values(
-				replynum_seq.nextval
+				SEQ_reply_replynum.nextval
 				,#{email}
 				,#{text}
 				,#{boardnum}

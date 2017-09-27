@@ -44,58 +44,56 @@ public class BloodController {
 	}
 
 	@RequestMapping(value = "showMYbdlist")
-    public String showMYbdlist(HttpSession ss, Model m) {
-       mapper = sqlsession.getMapper(BloodDao.class);
-       System.out.println("sdf");
-       String email = (String) ss.getAttribute("email");
-       ArrayList<Bdcard> bdlist = mapper.selectBdlist(email);
-      
-       m.addAttribute("list", bdlist);
-       System.out.println(bdlist);
-       
-       //등록한 헌혈증
-       ArrayList<Bdcard> Rlist = mapper.selectBdlist(email);
-       ArrayList<Bdcard> Registerlist = new ArrayList<>();
-       for (Bdcard bdcard : Rlist) {
-             if (bdcard.getStatus()==1) {   
-                Registerlist.add(bdcard);
-                
-                System.out.println(bdcard);
-             }
-          }
-          m.addAttribute("RegisterList", Registerlist);
-       //사용한 헌혈증
-       ArrayList<Bdcard> list = mapper.selectBdlist(email);
-       ArrayList<Bdcard> Usedlist = new ArrayList<>();
-       for (Bdcard bdcard : list) {
-             if (bdcard.getStatus()==2) {   
-                Usedlist.add(bdcard);
-                System.out.println(bdcard);
-             }
-          }
-          m.addAttribute("usedList", Usedlist);
-       //받은 헌혈증
-       // ArrayList<Bdcard> mlist=mapper.selectAllBdlist();
-         //  m.addAttribute("getlist", mlist);
-          
-          return "Blood/showMYbdlist";
-    }
+	public String showMYbdlist(HttpSession ss, Model m) {
+		mapper = sqlsession.getMapper(BloodDao.class);
+		System.out.println("sdf");
+		String email = (String) ss.getAttribute("email");
+		ArrayList<Bdcard> bdlist = mapper.selectBdlist(email);
 
-	//스캔한 헌혈증 등록
-		@RequestMapping("register")
-		public String register(
-				String bdnum
-		        ,HttpSession ss) {
-			mapper = sqlsession.getMapper(BloodDao.class);
-			String email = (String) ss.getAttribute("email");
-			HashMap<String, String> map = new HashMap<>();
-			map.put("email", email);
-			map.put("bdnum", bdnum);
-		      
-			mapper.register(map);
-		      
-		return "redirect:/showMYbdlist";
+		m.addAttribute("list", bdlist);
+		System.out.println(bdlist);
+
+		// 등록한 헌혈증
+		ArrayList<Bdcard> Rlist = mapper.selectBdlist(email);
+		ArrayList<Bdcard> Registerlist = new ArrayList<>();
+		for (Bdcard bdcard : Rlist) {
+			if (bdcard.getStatus() == 1) {
+				Registerlist.add(bdcard);
+
+				System.out.println(bdcard);
+			}
 		}
+		m.addAttribute("RegisterList", Registerlist);
+		// 사용한 헌혈증
+		ArrayList<Bdcard> list = mapper.selectBdlist(email);
+		ArrayList<Bdcard> Usedlist = new ArrayList<>();
+		for (Bdcard bdcard : list) {
+			if (bdcard.getStatus() == 2) {
+				Usedlist.add(bdcard);
+				System.out.println(bdcard);
+			}
+		}
+		m.addAttribute("usedList", Usedlist);
+		// 받은 헌혈증
+		// ArrayList<Bdcard> mlist=mapper.selectAllBdlist();
+		// m.addAttribute("getlist", mlist);
+
+		return "Blood/showMYbdlist";
+	}
+
+	// 스캔한 헌혈증 등록
+	@RequestMapping("register")
+	public String register(String bdnum, HttpSession ss) {
+		mapper = sqlsession.getMapper(BloodDao.class);
+		String email = (String) ss.getAttribute("email");
+		HashMap<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("bdnum", bdnum);
+
+		mapper.register(map);
+
+		return "redirect:/showMYbdlist";
+	}
 
 	// 헌혈 후 일정 시간 지난 후 알람
 	@RequestMapping(value = "alarm")
@@ -160,79 +158,78 @@ public class BloodController {
 		m.addAttribute("bdlist", bd);
 		return "/bdDonateform";
 	}
-	
+
 	// 헌혈증 목록 불러오기
 	@ResponseBody
 	@RequestMapping("/test6")
-	public HashMap<String, Object> test6(HttpSession ss, Model m) {
+	public HashMap<String, Object> test6(
+			HttpSession ss
+			, Model m) {
 		HashMap<String, Object> map = new HashMap<>();
-		
+
 		String email = (String) ss.getAttribute("email");
 		mapper = sqlsession.getMapper(BloodDao.class);
 		ArrayList<Bdcard> bd = mapper.selectBdlist(email);
 		m.addAttribute("bdlist", bd);
-		
+
 		map.put("bd", bd);
-		
+
 		return map;
 	}
-	
+
 	// 헌혈증 목록 불러오기2 (사용가능 헌혈증만)
 	@ResponseBody
 	@RequestMapping("/selectBdlist2")
 	public HashMap<String, Object> selectBdlist2(HttpSession ss, Model m) {
 		HashMap<String, Object> map = new HashMap<>();
-		
+
 		String email = (String) ss.getAttribute("email");
 		mapper = sqlsession.getMapper(BloodDao.class);
 		ArrayList<Bdcard> bd = mapper.selectBdlist2(email);
 		m.addAttribute("bdlist", bd);
-		
+
 		map.put("bd", bd);
-		
+
 		return map;
 	}
 
 	// 헌혈증 보내기
-	   @ResponseBody
-	   @RequestMapping(value = "send")
-	   public String send(
-	         @RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
-	         , String toEmail
-	         , int boardnum
-	         ) {
-	      mapper = sqlsession.getMapper(BloodDao.class);
+	@ResponseBody
+	@RequestMapping(value = "send")
+	public String send(
+			@RequestParam(value = "valueArrTest") ArrayList<String> bdbar_num
+			, String toEmail
+			, int boardnum
+			) {
+		mapper = sqlsession.getMapper(BloodDao.class);
 
-	      String boardnumber = Integer.toString(boardnum);
-	      System.out.println(bdbar_num.toString());
-	      System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다" + toEmail);
+		String boardnumber = Integer.toString(boardnum);
+		System.out.println(bdbar_num.toString());
+		System.out.println("이메일이 왔습니다 싱싱한 이메일이 왔습니다" + toEmail);
 
-	      for (int i = 0; i < bdbar_num.size(); i++) {
-	         // map에 담아 가져오기
-	         Map<String, String> bdlist = new HashMap<>();
-	         bdlist.put("bdbar_num", bdbar_num.get(i));
-	         bdlist.put("toEmail", toEmail);
-	         bdlist.put("boardnum", boardnumber);
-	         // 투이메일 집어넣기
-	         // 집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
-	         mapper.donate(bdlist);
-	      }
+		for (int i = 0; i < bdbar_num.size(); i++) {
+			// map에 담아 가져오기
+			Map<String, String> bdlist = new HashMap<>();
+			bdlist.put("bdbar_num", bdbar_num.get(i));
+			bdlist.put("toEmail", toEmail);
+			bdlist.put("boardnum", boardnumber);
+			// 투이메일 집어넣기
+			// 집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
+			mapper.donate(bdlist);
+		}
 
-	      return "redirect:donation";
-	   }
-	
-	
-	//받은 헌혈증 보기
+		return "redirect:donation";
+	}
+
+	// 받은 헌혈증 보기
 	@RequestMapping("/recived")
-	public String recived(
-			HttpSession ss
-			, Model m) {
+	public String recived(HttpSession ss, Model m) {
 		String toemail = (String) ss.getAttribute("email");
 		mapper = sqlsession.getMapper(BloodDao.class);
-		//toemail이 현재 로그인한 사람의 것과 같은것들 전부 담기
+		// toemail이 현재 로그인한 사람의 것과 같은것들 전부 담기
 		ArrayList<Bdcard> list = mapper.recivedlist(toemail);
 		m.addAttribute("list", list);
-		
+
 		return "recivedlist";
 	}
 

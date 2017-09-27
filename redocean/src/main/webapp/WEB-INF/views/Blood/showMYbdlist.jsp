@@ -146,8 +146,8 @@
 																<td>
 																	<div class="mimage">
 																		<c:if test="${bd.status==0}">
-																			<img src="images/bdcardBlank.png"
-																				style="width: 500px; height: auto;">
+																			<a href = "barcode"><img src="images/bdcardBlank.png"
+																				style="width: 500px; height: auto;"></a>
 																		</c:if>
 																		<c:if test="${bd.status==1}">
 																			<img src="images/bdcardBlank.png"

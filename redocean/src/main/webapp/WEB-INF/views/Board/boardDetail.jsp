@@ -55,7 +55,7 @@
 		$.ajax({
 			type : "post",
 			//contentType: "application/json", ==> 생략가능(RestController이기때문에 가능)
-			data: ${board.boardnum},
+			data: '${board.boardnum}',
 			url : "getreply?boardnum=${board.boardnum}",
 			success : function(result) {
 				var output = "<div>";
