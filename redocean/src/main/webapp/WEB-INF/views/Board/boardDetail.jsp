@@ -148,7 +148,7 @@ function sendSlcBdc() {
 	var test = [];
 	var toEmail = '${board.email}';
 	var boardnum = '${board.boardnum}';
-	
+	alert(boardnum);
 	for (var i = 0; i < fields.length; i++) {
 		 alert(fields[i].innerHTML);
 		 test.push(fields[i].innerHTML);

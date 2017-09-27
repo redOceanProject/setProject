@@ -216,6 +216,7 @@ public class BloodController {
 			// 투이메일 집어넣기
 			// 집어넣으면서 헌혈증 상태 바꿔줘야함(쿼리에 박아넣을것)
 			mapper.donate(bdlist);
+			System.out.println(bdlist);
 		}
 
 		return "redirect:donation";
