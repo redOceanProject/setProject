@@ -73,8 +73,7 @@
 
 						<div class="pull-left logo-outer">
 							<div class="logo">
-								<a href="index.html"><img src="images/logo.png" alt=""
-									title=""></a>
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
 							</div>
 						</div>
 
@@ -113,8 +112,7 @@
 				<div class="auto-container clearfix">
 					<!--Logo-->
 					<div class="logo pull-left">
-						<a href="index.html" class="img-responsive"><img
-							src="images/logo-small.png" alt="" title=""></a>
+						<a href="index.html" class="img-responsive"><img src="images/cheer-logo.png" alt="" title=""></a>
 					</div>
 
 					<!--Right Col-->
@@ -168,8 +166,8 @@
 								</div>
 								<br>
 								<form action="findinfo" id="findinfo" method="post">
-									<input type="text" id="result" name="num" value="">
-									<!-- <input type="submit" value="확인">&nbsp; <input type="reset" value="다시 스캔"> -->
+									<div style= "text-align: center;"><input type="text" id="result" name="num" value=""></div>
+									<!-- <input type="submit" value="확인">&nbsp; <input type="reset" value="다시 스캔"> -->0
 								</form>
 							</div>
 						</div>

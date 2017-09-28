@@ -39,7 +39,7 @@
             	<div class="clearfix">
                 	
                 	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                    	<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
                     </div>
                     
                     <div class="nav-outer clearfix">
@@ -78,7 +78,7 @@
         	<div class="auto-container clearfix">
             	<!--Logo-->
             	<div class="logo pull-left">
-                	<a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
+                	<<a href="index.html" class="img-responsive"><img src="images/cheer-logo.png" alt="" title=""></a>
                 </div>
                 
                 <!--Right Col-->
@@ -125,7 +125,7 @@
                         <div class="lower-box">
                         	<div class="content">
                                 <h3><a href="boardDetail?boardnum=${boardList.boardnum}">${boardList.title}</a></h3> <!--제목-->
-                                <div class="text">${boardList.content}</div><!--내용 미리보기-->
+                                <div class="text">${boardList.content}…</div><!--내용 미리보기-->
                                 <div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
                                     <div class="bar-inner"> <!--프로그래스 바-->
                                         <div class="bar" style="width:<fmt:formatNumber value="${(boardList.blood_present)/(boardList.goal_blood)*100}" pattern="0"/>%;">

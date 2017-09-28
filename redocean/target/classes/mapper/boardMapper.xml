@@ -192,7 +192,23 @@
  	</insert>
 	
 	<select id="selectboardlist" parameterType="string" resultType="mainboard">
-       SELECT * FROM mainboard WHERE boardnum = #{boardnum}
+       select 
+		boardnum
+		, email
+		, name
+		, title
+		, content
+		, to_char(inputdate, 'YYYY-MM-DD') inputdate
+		, to_char(goal_date, 'YYYY-MM-DD') goal_date
+		, hits
+		, originalfile
+		, savedfile
+		, sickName
+		, status
+		, goal_blood
+		, blood_present
+		from mainboard
+       WHERE boardnum = #{boardnum}
     </select>
     
      	<!-- 기부받은 헌혈증 수만큼  -->

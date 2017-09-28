@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -25,7 +24,20 @@
 <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
 <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
+<style>
+.backimg {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
 
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+</style>
 <body>
 	<div class="page-wrapper">
 
@@ -42,8 +54,7 @@
 
 						<div class="pull-left logo-outer">
 							<div class="logo">
-								<a href="index.html"><img src="images/logo.png" alt=""
-									title=""></a>
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
 							</div>
 						</div>
 
@@ -111,6 +122,9 @@
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
+																	<c:if test="${myList.blood_present == myList.goal_blood}">
+																		<img class="backimg" src="images/complete.png" style="position:absolute; z-index:1; top: 20%; width: 70%; height: auto;"></img>
+																	</c:if>
                         										</div>
                         										<div class="lower-box">
                         											<div class="content">
@@ -177,6 +191,7 @@
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
+                        											<img class="backimg" src="images/complete.png" style="position:absolute; z-index:1; top: 20%; width: 70%; height: auto;"></img>
                         										</div>
                         										<div class="lower-box">
                         											<div class="content">
@@ -192,10 +207,10 @@
                                 										<div class="causes-info"><strong>헌혈증</strong> ${myList.blood_present} / <span class="theme_color">${myList.goal_blood}</span>
                                 											&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${myList.goal_date}</span>
                                 										</div>
-                            										</div>
+                            										</div><!-- end content -->
                         										</div>
                     										</div>
-               											</div>
+               											</div><!-- end block -->
                										</c:if>	
                 									</c:forEach>
 												</div>

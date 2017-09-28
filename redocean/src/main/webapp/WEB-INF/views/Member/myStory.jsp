@@ -25,7 +25,22 @@
 <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
 <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
+<style>
+.backimg {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
 
+
+            animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+</style>
 <body>
 	<div class="page-wrapper">
 
@@ -42,8 +57,7 @@
 
 						<div class="pull-left logo-outer">
 							<div class="logo">
-								<a href="index.html"><img src="images/logo.png" alt=""
-									title=""></a>
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
 							</div>
 						</div>
 
@@ -94,7 +108,7 @@
 								<div id="wrapper1" style="padding: 35px; padding-left: 67px;">
 									<div class="container">
 										<div class="title1" style="text-align: center; width: 80%; padding-bottom: 20px;">
-											<h2>Written My story</h2>
+											<h2>나의 사연</h2>
 										</div>
 										<ul class="nav nav-tabs">
 											<li class="active"><a data-toggle="tab" href="#all">전체사연</a></li>
@@ -111,11 +125,16 @@
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
+																	
+																	<c:if test="${myList.blood_present == myList.goal_blood}">
+																	<img class="backimg" src="images/complete.png" style="position:absolute; z-index:1; top: 20%; width: 70%; height: auto;"></img>
+																	</c:if>
+																	
                         										</div>
                         										<div class="lower-box">
                         											<div class="content">
                                 										<h3><a href="boardDetail?boardnum=${myList.boardnum}">${myList.title}</a></h3> <!--제목-->
-                                										<div class="text">${myList.content}</div><!--내용 미리보기-->
+                                										<div class="text">${myList.content}...</div><!--내용 미리보기-->
                                 										<div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
                                     										<div class="bar-inner"> <!--프로그래스 바-->
                                         										<div class="bar" style="width:<fmt:formatNumber value="${(myList.blood_present)/(myList.goal_blood)*100}" pattern="0"/>%;">
@@ -177,6 +196,9 @@
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
+                        										 
+                											    <img class="backimg" src="images/complete.png" style="position:absolute; z-index:1; top: 20%; width: 70%; height: auto;"></img>
+                    											
                         										</div>
                         										<div class="lower-box">
                         											<div class="content">

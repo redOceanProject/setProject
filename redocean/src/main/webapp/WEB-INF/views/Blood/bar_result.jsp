@@ -37,44 +37,46 @@
     <header class="main-header header-type-one">
     
     	<!--Header-Upper-->
-        <div class="header-upper">
-        	<div class="auto-container">
-            	<div class="clearfix">
-                	
-                	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
-                    </div>
-                    
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu">
-                        	 <div class="navbar-header">
-                                <!-- Toggle Button -->    	
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-                            <div class="navbar-collapse collapse clearfix">
-                                <ul class="navigation clearfix">
-                                	<c:if test="${email == null}">
-                                    	<li><a href="login">로그인</a></li>
-                                	</c:if>
-                                	<c:if test="${email != null}">
-                                		<li><a href="logout">${name}..로그아웃</a></li>
-                                		<li><a href="myPage">마이페이지</a></li>
-                                    	<li><a href="write">사연 올리기</a></li>
-                                    </c:if>
-                                </ul>
-                            </div>
-                        </nav>
-                	</div>
-                </div>
-            </div>
-        </div>
-        <!--End Header Upper-->
+			<div class="header-upper">
+				<div class="auto-container">
+					<div class="clearfix">
 
+						<div class="pull-left logo-outer">
+							<div class="logo">
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
+							</div>
+						</div>
+
+						<div class="nav-outer clearfix">
+							<!-- Main Menu -->
+							<nav class="main-menu">
+								<div class="navbar-header">
+									<!-- Toggle Button -->
+									<button type="button" class="navbar-toggle"
+										data-toggle="collapse" data-target=".navbar-collapse">
+										<span class="icon-bar"></span> <span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+								<div class="navbar-collapse collapse clearfix">
+									<ul class="navigation clearfix">
+										<c:if test="${email == null}">
+											<li><a href="login">로그인</a></li>
+										</c:if>
+										<c:if test="${email != null}">
+											<li><a href="logout">${name}..로그아웃</a></li>
+											<li><a href="myPage">마이페이지</a></li>
+											<li><a href="write">사연 올리기</a></li>
+										</c:if>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+			
 	</header>
 	<!--End Main Header -->
 
@@ -116,17 +118,19 @@
             	<div class="about-column-two col-md-6 col-sm-12 col-xs-12">
                 	<div class="inner-box">
                         <h2>${name}님의 헌혈증</h2>
-                        <div class="text">どうもありがとうございます。</div>
+                        <!-- <div class="text">どうもありがとうございます。</div> -->
                         <ul class="list-style-two">
-                        	<li>등록하면 종이 헌혈증은 효과 없음</li>
-                            <li>등록하면 낙장불입</li>
-                            <li>사고팔기 안됩니다</li>
+                        	<li>증서를 의료기관에 제출하는 경우, 진료비의 수혈비용 중 본인부담금액을 공제 받습니다.</li>
+                        	<li>금전,재산상의 대가적 급부를 주거나 주기로 하고 이 증서를 제공하거나 제공받아서는 아니됩니다.</li>
+                        	<li>증서는 재등록이 불가능하오니, 등록에 유의하시기 바랍니다.</li>
+                            <!-- <li>등록하면 낙장불입</li>
+                            <li>사고팔기 안됩니다</li> -->
                         </ul>
                         <div class="clearfix">
                             <!--Author Info-->
                             <div class="author-info pull-left">
-                                <h4>${name}</h4>
-                                <div class="designation">${email}</div>
+                                <%-- <h4>${name}</h4>
+                                <div class="designation">${email}</div> --%>
                             </div>
                             <form method="post" action="register">
                         		<button class="theme-btn btn-style-one" type="submit">등록하기</button>

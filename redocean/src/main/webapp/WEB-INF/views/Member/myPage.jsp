@@ -40,7 +40,7 @@
             	<div class="clearfix">
                 	
                 	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                    	<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
                     </div>
                     
                     <div class="nav-outer clearfix">
@@ -121,7 +121,7 @@
                 	
                     <!--Form Portlet-->
                     <div class="form-portlet" style="text-align : center; padding-bottom:5px; border-bottom: 1px solid #eee" >
-                    	<h3>MyPage</h3>
+                    	<h3>나의 페이지</h3>
                     </div>
                     
                     <!--Form Portlet-->

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -231,7 +230,6 @@ function sendSlcBdc() {
 </script>
 </head>
 <body>
-<div><input type="button" id="btT" value="시험용"></div>
 <div class="page-wrapper">
 
       <!-- Preloader -->
@@ -246,7 +244,7 @@ function sendSlcBdc() {
                <div class="clearfix">
                    
                    <div class="pull-left logo-outer">
-                       <div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                       <a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
                     </div>
                     
                     <div class="nav-outer clearfix">
@@ -286,7 +284,7 @@ function sendSlcBdc() {
            <div class="auto-container clearfix">
                <!--Logo-->
                <div class="logo pull-left">
-                   <a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
+                   <a href="index.html" class="img-responsive"><img src="images/cheer-logo.png" alt="" title=""></a>
                 </div>
                 
                 <!--Right Col-->
@@ -371,7 +369,7 @@ function sendSlcBdc() {
                             </div>
                             <ul class="count">
                                <li>
-                                   <c:if test="${email != null}">
+                                   <c:if test="${board.email == email}">
                                       <a href="boardUpdate?boardnum=${board.boardnum}"><span class="icon fa fa-pencil"></span></a>&nbsp;&nbsp;
                                       <a href="boardDelete?boardnum=${board.boardnum}"><span class="icon fa fa-trash-o"></span></a>
                                    </c:if>

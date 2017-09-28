@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html><head>
 <meta charset="utf-8">
@@ -11,7 +12,7 @@
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
-<!--<link href="css/color-themes/orange-theme.css" rel="stylesheet">-->
+<link href="css/color-themes/red-theme.css" rel="stylesheet">
 
 <!--Favicon-->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -33,18 +34,44 @@
     <header class="main-header header-type-one">
     
     	<!--Header-Upper-->
-        <div class="header-upper">
-        	<div class="auto-container">
-            	<div class="clearfix">
-                	
-                	<div class="logo-outer">
-                    	<a href="index.html"><img class="img-responsive center-block" src="images/logo.png" alt="" title=""></a>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <!--End Header Upper-->
+			<div class="header-upper">
+				<div class="auto-container">
+					<div class="clearfix">
+
+						<div class="pull-left logo-outer">
+							<div class="logo">
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
+							</div>
+						</div>
+
+						<div class="nav-outer clearfix">
+							<!-- Main Menu -->
+							<nav class="main-menu">
+								<div class="navbar-header">
+									<!-- Toggle Button -->
+									<button type="button" class="navbar-toggle"
+										data-toggle="collapse" data-target=".navbar-collapse">
+										<span class="icon-bar"></span> <span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+								<div class="navbar-collapse collapse clearfix">
+									<ul class="navigation clearfix">
+										<c:if test="${email == null}">
+											<li><a href="login">로그인</a></li>
+										</c:if>
+										<c:if test="${email != null}">
+											<li><a href="logout">${name}..로그아웃</a></li>
+											<li><a href="myPage">마이페이지</a></li>
+										</c:if>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
         
     </header>
     <!--End Main Header -->
@@ -56,9 +83,6 @@
             <div class="donate-form-section">
             	
             	<form method="post" action="write" enctype="multipart/form-data">
-            	 <div class="text-center">
-    				<div>${name}</div>
-    			</div>
             	
                 <div class="donation-form-outer">
             	

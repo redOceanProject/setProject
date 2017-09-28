@@ -62,7 +62,23 @@ public class BoardController {
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
 		ArrayList<Mainboard> list = mapper.select(search, rb);
 
-		for (Mainboard board : list) {
+		String[] aa; 
+		String bb; 
+		
+		for(Mainboard board : list){
+			
+			bb = board.getContent(); //글자수
+			int bbb = bb.length();
+			
+			if(bbb < 30){
+				aa = board.getContent().split("\r\n");	//다음줄
+				String aaa = aa[0];
+				board.setContent(aaa);
+			}else{
+				String ccc = bb.substring(0, 20);
+				board.setContent(ccc);
+			}
+			
 			String str = board.getContent().replaceAll("\r\n", "<br>");
 			board.setContent(str);
 		}
@@ -160,9 +176,6 @@ public class BoardController {
 	@RequestMapping(value = "/boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(Mainboard board, MultipartFile upload, HttpSession session, RedirectAttributes rttr) {
 
-		// 줄 바꿈
-		String str = board.getContent().replaceAll("\r\n", "<br>");
-		board.setContent(str);
 
 		// 수정할 글이 로그인한 본인 글인지 확인
 		// (만약 글보기에서 자신의 글이 아니더라도 수정버튼이 있다면 아래의 코드 필요)
@@ -330,7 +343,7 @@ public class BoardController {
 		// 가져와 담기
 		ArrayList<String> list = map.selectBoardnum(email);
 		System.out.println("헌혈증에 있는 글 넘버:"+list);
-
+		
 		// 포문에서 돌려서 글번호 뽑아내 리스트에다 담기
 		mapper = sqlsession.getMapper(BoardDao.class);
 		ArrayList<Mainboard> boardlist = new ArrayList<>();
@@ -338,6 +351,30 @@ public class BoardController {
 			Mainboard main = mapper.selectboardlist(list.get(i));
 			boardlist.add(main);
 		}
+		
+		String[] aa; 
+		String bb; 
+		
+		for(Mainboard board : boardlist){
+			
+			bb = board.getContent(); //글자수
+			int bbb = bb.length();
+			
+			if(bbb < 30){
+				aa = board.getContent().split("\r\n");	//다음줄
+				String aaa = aa[0];
+				board.setContent(aaa);
+			}else{
+				String ccc = bb.substring(0, 20);
+				board.setContent(ccc);
+			}
+			
+			String str = board.getContent().replaceAll("\r\n", "<br>");
+			board.setContent(str);
+		}
+		
+		
+		
 		System.out.println("글내용:"+boardlist);
 		// 모델에 담아 보냄
 		m.addAttribute("boardlist", boardlist);

@@ -42,8 +42,7 @@
 
 						<div class="pull-left logo-outer">
 							<div class="logo">
-								<a href="index.html"><img src="images/cheer-logo.png" alt=""
-									title=""></a>
+								<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
 							</div>
 						</div>
 
@@ -118,13 +117,74 @@
 			<div class="tp-banner-container">
 				<div class="tp-banner">
 					<div class="overlay-slide">
-						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/X8QyN-ndnUc?rel=0&autoplay=1;playlist=X8QyN-ndnUc"></iframe>
+						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/X8QyN-ndnUc?rel=0&autoplay=1&showinfo=0&controls=0;playlist=X8QyN-ndnUc"></iframe>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!--End Main Slider-->
+<!--Causes Section-->
+		<section class="causes-section dark-bg">
+			<div class="auto-container">
 
+				<div class="sec-title clearfix">
+					<!-- 제목 줄 -->
+					<div class="pull-left">
+						<h2>최근 사연</h2>
+						<!-- <div class="text">새로운 사연입니다.</div> -->
+					</div>
+					<div class="pull-right">
+						<a href="boardList" class="theme-btn btn-style-four">모든 사연 보기</a>
+					</div>
+				</div>
+
+				<div class="row clearfix">
+					<!--Causes Block-->
+					<!-- 사연1 -->
+					<c:forEach var="mainboard" items="${list}" begin="0" end="2">
+						<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+							<div class="inner-box">
+								<div class="image">
+									<a href="boardDetail?boardnum=${mainboard.boardnum}"><img
+										src="download?boardnum=${mainboard.boardnum}" /></a>
+									<!-- 이미지 -->
+								</div>
+								<div class="lower-box">
+									<div class="content">
+										<h3>
+											<a href="boardDetail?boardnum=${mainboard.boardnum}">${mainboard.title}</a>
+										</h3>
+										<!--제목-->
+										<div class="text">${mainboard.content}…</div>
+										<!--내용 미리보기-->
+										<div class="donate-bar wow fadeIn" data-wow-delay="0ms"
+											data-wow-duration="0ms">
+											<div class="bar-inner">
+												<!--프로그래스 바-->
+												<div class="bar"
+													style="width:<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>%;">
+													<div class="count-box">
+														<span class="count-text" data-speed="2000"
+															data-stop="<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>"></span>%
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="causes-info">
+											<strong>헌혈증</strong> ${mainboard.blood_present} / <span
+												class="theme_color">${mainboard.goal_blood}</span> &nbsp;<strong>마감날짜
+												: </strong><span class="theme_color"> ${mainboard.goal_date}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+
+			</div>
+		</section>
+		<!--End Causes Section-->
 		<!--Services Section-->
 		<!-- 방식 -->
 		<section class="services-section">
@@ -189,131 +249,7 @@
 		</section>
 		<!--End Services Section-->
 
-		<!--Causes Section-->
-		<section class="causes-section dark-bg">
-			<div class="auto-container">
-
-				<div class="sec-title clearfix">
-					<!-- 제목 줄 -->
-					<div class="pull-left">
-						<h2>최근 사연</h2>
-						<div class="text">새로운 사연입니다.</div>
-					</div>
-					<div class="pull-right">
-						<a href="boardList" class="theme-btn btn-style-four">모든 사연 보기</a>
-					</div>
-				</div>
-
-				<div class="row clearfix">
-					<!--Causes Block-->
-					<!-- 사연1 -->
-					<c:forEach var="mainboard" items="${list}" begin="0" end="2">
-						<div class="causes-block col-md-4 col-sm-6 col-xs-12">
-							<div class="inner-box">
-								<div class="image">
-									<a href="boardDetail?boardnum=${mainboard.boardnum}"><img
-										src="download?boardnum=${mainboard.boardnum}" /></a>
-									<!-- 이미지 -->
-								</div>
-								<div class="lower-box">
-									<div class="content">
-										<h3>
-											<a href="boardDetail?boardnum=${mainboard.boardnum}">${mainboard.title}</a>
-										</h3>
-										<!--제목-->
-										<div class="text">${mainboard.content}</div>
-										<!--내용 미리보기-->
-										<div class="donate-bar wow fadeIn" data-wow-delay="0ms"
-											data-wow-duration="0ms">
-											<div class="bar-inner">
-												<!--프로그래스 바-->
-												<div class="bar"
-													style="width:<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>%;">
-													<div class="count-box">
-														<span class="count-text" data-speed="2000"
-															data-stop="<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>"></span>%
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="causes-info">
-											<strong>헌혈증</strong> ${mainboard.blood_present} / <span
-												class="theme_color">${mainboard.goal_blood}</span> &nbsp;<strong>마감날짜
-												: </strong><span class="theme_color"> ${mainboard.goal_date}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-
-			</div>
-		</section>
-		<!--End Causes Section-->
-
-
-		<!--Testimonial Section-->
-		<!-- <!-- <section class="testimonial-section">
-         <div class="auto-container">
-            <h2>Testimonials</h2>
-            <div class="testimonial-outer">
-
-               Client Testimonial Carousel
-               <div class="client-testimonial-carousel owl-carousel owl-theme">
-
-                  Testimonial Block One
-                  <div class="testimonial-block-one">
-                     <div class="inner-box">
-                        <div class="text">Aristotle maintained the sharp distinct
-                           between science and the practical knowledge of artisans,
-                           treating theoretical speculation as the highest type of human
-                           activity, practical thinking about good living as something
-                           less lofty, and the knowledge</div>
-                     </div>
-                  </div>
-
-                  Testimonial Block One
-                  <div class="testimonial-block-one">
-                     <div class="inner-box">
-                        <div class="text">Aristotle maintained the sharp distinct
-                           between science and the practical knowledge of artisans,
-                           treating theoretical speculation as the highest type of human
-                           activity, practical thinking about good living as something
-                           less lofty, and the knowledge</div>
-                     </div>
-                  </div>
-               </div>
-
-               Product Thumbs Carousel
-               <div class="client-thumb-outer">
-                  <div class="client-thumbs-carousel owl-carousel owl-theme">
-                     <div class="thumb-item">
-                        <figure class="thumb-box">
-                           <img src="images/resource/author-2.jpg" alt="">
-                        </figure>
-                        <div class="thumb-content">
-                           <h3>Muhibbur Rashid</h3>
-                           <div class="designation">Designer Google</div>
-                        </div>
-                     </div>
-                     <div class="thumb-item">
-                        <figure class="thumb-box">
-                           <img src="images/resource/author-3.jpg" alt="">
-                        </figure>
-                        <div class="thumb-content">
-                           <h3>Muhibbur Rashid</h3>
-                           <div class="designation">Designer Google</div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-            </div>
-         </div>
-      </section> -->
-		-->
-		<!--End Testimonial Section-->
+		
 
 
 		<footer class="main-footer">
@@ -323,14 +259,14 @@
 					<div class="row clearfix">
 						<div class="col-md-6 col-sm-6 col-xs-12">
 							<div class="copyright">
-								All Right Researved <a href="#">Huminity</a> &copy; 2017
+								All Right Researved <a href="#">Cheer's</a> &copy; 2017
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-12">
 							<ul class="footer-nav">
-								<li><a href="#">Home</a></li>
+								<!-- <li><a href="#">Home</a></li>
 								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">FAQ's</a></li>
+								<li><a href="#">FAQ's</a></li> -->
 							</ul>
 						</div>
 					</div>

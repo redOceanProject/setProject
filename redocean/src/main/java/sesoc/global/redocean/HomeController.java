@@ -47,6 +47,27 @@ public class HomeController {
 			System.out.println(string);
 		}*/
 		
+		String[] aa; 
+		String bb; 
+		
+		for(Mainboard board : list){
+			
+			bb = board.getContent(); //글자수
+			int bbb = bb.length();
+			
+			if(bbb < 30){
+				aa = board.getContent().split("\r\n");	//다음줄
+				String aaa = aa[0];
+				board.setContent(aaa);
+			}else{
+				String ccc = bb.substring(0, 20);
+				board.setContent(ccc);
+			}
+			
+			String str = board.getContent().replaceAll("\r\n", "<br>");
+			board.setContent(str);
+		}
+		
 		model.addAttribute("list", list);
 		return "index";
 	}

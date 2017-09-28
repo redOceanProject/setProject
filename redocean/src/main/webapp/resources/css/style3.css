@@ -2130,7 +2130,7 @@ img{
 	padding-top:6px;
 	margin-bottom:30px;
 	min-height:76px;
-	padding-right: 70px;/*헌혈증 등록하기 버튼 위치*/
+	padding-right: 0px;/*헌혈증 등록하기 버튼 위치*/
 }
 
 .about-column-two .inner-box .author-info .signature{

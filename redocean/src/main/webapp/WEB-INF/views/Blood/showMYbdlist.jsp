@@ -44,7 +44,7 @@
             	<div class="clearfix">
                 	
                 	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
+                    	<a href="index.html"><img src="images/cheer-logo.png" alt="" title=""></a>
                     </div>
                     
                     <div class="nav-outer clearfix">
@@ -82,7 +82,7 @@
         	<div class="auto-container clearfix">
             	<!--Logo-->
             	<div class="logo pull-left">
-                	<a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
+                	<a href="index.html" class="img-responsive"><img src="images/cheer-logo.png" alt="" title=""></a>
                 </div>
                 
                 <!--Right Col-->
@@ -351,7 +351,7 @@
                                                       <div>
                                                         
                                                       <input type="text" class="toemailText"
-                                                            value="${bdt} ${bd.toemail}" style="text-align: center; font-weight:bold;
+                                                            value="${bdt} ${bd.email}" style="text-align: center; font-weight:bold;
                                                             width: 100%; left:5px; font-size: 15px;" readonly>
                                                       </div>
                                                       
