@@ -35,106 +35,110 @@
 		<!-- Main Header-->
 		<header class="main-header header-type-one">
 
-    	<!--Header-Upper-->
-        <div class="header-upper">
-        	<div class="auto-container">
-            	<div class="clearfix">
-                	
-                	<div class="pull-left logo-outer">
-                    	<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" title=""></a></div>
-                    </div>
-                    
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu">
-                        	 <div class="navbar-header">
-                                <!-- Toggle Button -->    	
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-                            <div class="navbar-collapse collapse clearfix">
-                                <ul class="navigation clearfix">
-                                	<c:if test="${email == null}">
-                                    	<li><a href="login">로그인</a></li>
-                                	</c:if>
-                                	<c:if test="${email != null}">
-                                		<li><a href="logout">${name}..로그아웃</a></li>
-                                		<li><a href="myPage">마이페이지</a></li>
-                                    	<li><a href="write">사연 올리기</a></li>
-                                    </c:if>
-                                </ul>
-                            </div>
-                        </nav>
-                	</div>
-                </div>
-            </div>
-        </div>
-        <!--End Header Upper-->
+			<!--Header-Upper-->
+			<div class="header-upper">
+				<div class="auto-container">
+					<div class="clearfix">
 
-			 <!--Sticky Header-->
-        <div class="sticky-header">
-        	<div class="auto-container clearfix">
-            	<!--Logo-->
-            	<div class="logo pull-left">
-                	<a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
-                </div>
-                
-                <!--Right Col-->
-                <div class="right-col pull-right">
-                	<!-- Main Menu -->
-                    <nav class="main-menu">
-                        
-                        <div class="navbar-collapse collapse clearfix">
-							<ul class="navigation clearfix">
-                               <c:if test="${email == null}">
-                                    <li><a href="login">로그인</a></li>
-                                </c:if>
-                                <c:if test="${email != null}">
-                                	<li><a href="logout">${name}..로그아웃</a></li>
-                                	<li><a href="#">마이페이지</a></li>
-                                   	<li><a href="write">사연 올리기</a></li>
-                                </c:if>
-                            </ul>
-                        </div>
-                    </nav><!-- Main Menu End-->
-                </div>
-                
-            </div>
-        </div>
-        <!--End Sticky Header-->
+						<div class="pull-left logo-outer">
+							<div class="logo">
+								<a href="index.html"><img src="images/cheer-logo.png" alt=""
+									title=""></a>
+							</div>
+						</div>
+
+						<div class="nav-outer clearfix">
+							<!-- Main Menu -->
+							<nav class="main-menu">
+								<div class="navbar-header">
+									<!-- Toggle Button -->
+									<button type="button" class="navbar-toggle"
+										data-toggle="collapse" data-target=".navbar-collapse">
+										<span class="icon-bar"></span> <span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+								</div>
+								<div class="navbar-collapse collapse clearfix">
+									<ul class="navigation clearfix">
+										<c:if test="${email == null}">
+											<li><a href="login">로그인</a></li>
+										</c:if>
+										<c:if test="${email != null}">
+											<li><a href="logout">${name}..로그아웃</a></li>
+											<li><a href="myPage">마이페이지</a></li>
+											<li><a href="write">사연 올리기</a></li>
+										</c:if>
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--End Header Upper-->
+
+			<!--Sticky Header-->
+			<div class="sticky-header">
+				<div class="auto-container clearfix">
+					<!--Logo-->
+					<div class="logo pull-left">
+						<a href="index.html" class="img-responsive"><img src="images/cheer-logo.png" alt="" title=""></a>
+					</div>
+
+					<!--Right Col-->
+					<div class="right-col pull-right">
+						<!-- Main Menu -->
+						<nav class="main-menu">
+
+							<div class="navbar-collapse collapse clearfix">
+								<ul class="navigation clearfix">
+									<c:if test="${email == null}">
+										<li><a href="login" style="top: 15px;">로그인</a></li>
+									</c:if>
+									<c:if test="${email != null}">
+										<li><a href="logout" style="top: 15px;">${name}..로그아웃</a></li>
+										<li><a href="myPage" style="top: 15px;">마이페이지</a></li>
+										<li><a href="write" style="top: 15px;">사연 올리기</a></li>
+									</c:if>
+								</ul>
+							</div>
+						</nav>
+						<!-- Main Menu End-->
+					</div>
+
+				</div>
+			</div>
+			<!--End Sticky Header-->
+
 		</header>
 		<!--End Main Header -->
 
 		<!--Main Slider-->
-		<section class="main-slider" data-start-height="700"
-			data-slide-overlay="yes">
-
+		<section class="main-slider" data-start-height="700" data-slide-overlay="yes">
 			<div class="tp-banner-container">
 				<div class="tp-banner">
 					<div class="overlay-slide">
 						<iframe width="100%" height="100%" src="https://www.youtube.com/embed/X8QyN-ndnUc?rel=0&autoplay=1;playlist=X8QyN-ndnUc"></iframe>
 					</div>
-
 				</div>
 			</div>
 		</section>
 		<!--End Main Slider-->
 
-		<!--Services Section--> <!-- 방식 -->
+		<!--Services Section-->
+		<!-- 방식 -->
 		<section class="services-section">
 			<div class="auto-container">
 				<!--Services Title-->
 				<div class="services-title">
-					<h2>
-						Huminity is the<span>world’s #1 fundraising</span> site for <br>
-						charitable causes and Helping Homeless
-					</h2>
-					<div class="text">What we do is best seen in action! Our
-						forms blend seamlessly with client sites and are customized to
-						meet their</div>
+					<div>
+						<h2>사람과 사람을 이어</h2>
+					</div>
+					<div>
+						<h2>
+							<span> 따뜻함 </span>과 <span> 뿌듯함 </span>을 만들다
+						</h2>
+					</div>
 				</div>
 				<div class="clearfix">
 
@@ -142,14 +146,12 @@
 					<div class="services-style-one col-md-4 col-sm-6 col-xs-12">
 						<div class="inner-box">
 							<div class="icon-box">
-								<span class="icon flaticon-donation"></span>
+								<img src="images/icons/index-barcode.png" style="padding-bottom: 5px;">
 							</div>
 							<h3>
-								<a href="causes-grid.html">Make Donation</a>
+								<a href="">바코드 활용</a>
 							</h3>
-							<div class="title">Help us by Make Donation</div>
-							<div class="text">Raise more money with our custom made
-								solution. Unlimited campai pages pledge giving, monthly giving.</div>
+							<div class="text">헌혈증 바코드로<br>등록·보관</div>
 						</div>
 					</div>
 
@@ -157,14 +159,14 @@
 					<div class="services-style-one col-md-4 col-sm-6 col-xs-12">
 						<div class="inner-box">
 							<div class="icon-box">
-								<span class="icon flaticon-piggy-bank"></span>
+								<img src="images/icons/index-group.png" style="padding-bottom: 10px;">
 							</div>
 							<h3>
-								<a href="causes-grid.html">Fundrising</a>
+								<a href="">크라우드 펀딩</a>
 							</h3>
-							<div class="title">Collect Fund All Over the World</div>
-							<div class="text">Raise more money with our custom made
-								solution. Unlimited campai pages pledge giving, monthly giving.</div>
+							<div class="text">
+								[기부형]크라우드 펀딩 방식으로 <br>헌혈증을 선택적 기부
+							</div>
 						</div>
 					</div>
 
@@ -172,14 +174,13 @@
 					<div class="services-style-one col-md-4 col-sm-6 col-xs-12">
 						<div class="inner-box">
 							<div class="icon-box">
-								<span class="icon flaticon-donation-1"></span>
+								<img src="images/icons/index-time.png" style="padding-bottom: 10px;">
 							</div>
-							<h3>
-								<a href="causes-grid.html">Volunteer</a>
-							</h3>
-							<div class="title">Becoma aVolunteer</div>
-							<div class="text">Raise more money with our custom made
-								solution. Unlimited campai pages pledge giving, monthly giving.</div>
+							<h3>공간적·시간적 제약 해소</h3>
+							<div class="title"></div>
+							<div class="text">
+								시공간을 초월한<br>헌혈증 기부<br>
+							</div>
 						</div>
 					</div>
 
@@ -204,122 +205,140 @@
 				</div>
 
 				<div class="row clearfix">
-            	<!--Causes Block--> <!-- 사연1 -->
-            	<c:forEach var="mainboard" items="${list}" begin="0" end="2">
-            	<div class="causes-block col-md-4 col-sm-6 col-xs-12">
-                	<div class="inner-box">
-                    	<div class="image">
-							<a href="boardDetail?boardnum=${mainboard.boardnum}"><img src="download?boardnum=${mainboard.boardnum}"/></a><!-- 이미지 -->
-                        </div>
-                        <div class="lower-box">
-                        	<div class="content">
-                                <h3><a href="boardDetail?boardnum=${mainboard.boardnum}">${mainboard.title}</a></h3> <!--제목-->
-                                <div class="text">${mainboard.content}</div><!--내용 미리보기-->
-                                <div class="donate-bar wow fadeIn" data-wow-delay="0ms" data-wow-duration="0ms">
-                                    <div class="bar-inner"> <!--프로그래스 바-->
-                                        <div class="bar" style="width:<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>%;">
-                                            <div class="count-box"><span class="count-text" data-speed="2000" data-stop="<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>"></span>%</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="causes-info"><strong>헌혈증</strong> ${mainboard.blood_present} / <span class="theme_color">${mainboard.goal_blood}</span>
-                                	&nbsp;<strong>마감날짜 : </strong><span class="theme_color"> ${mainboard.goal_date}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </c:forEach>
-            	</div>
-            
+					<!--Causes Block-->
+					<!-- 사연1 -->
+					<c:forEach var="mainboard" items="${list}" begin="0" end="2">
+						<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+							<div class="inner-box">
+								<div class="image">
+									<a href="boardDetail?boardnum=${mainboard.boardnum}"><img
+										src="download?boardnum=${mainboard.boardnum}" /></a>
+									<!-- 이미지 -->
+								</div>
+								<div class="lower-box">
+									<div class="content">
+										<h3>
+											<a href="boardDetail?boardnum=${mainboard.boardnum}">${mainboard.title}</a>
+										</h3>
+										<!--제목-->
+										<div class="text">${mainboard.content}</div>
+										<!--내용 미리보기-->
+										<div class="donate-bar wow fadeIn" data-wow-delay="0ms"
+											data-wow-duration="0ms">
+											<div class="bar-inner">
+												<!--프로그래스 바-->
+												<div class="bar"
+													style="width:<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>%;">
+													<div class="count-box">
+														<span class="count-text" data-speed="2000"
+															data-stop="<fmt:formatNumber value="${(mainboard.blood_present)/(mainboard.goal_blood)*100}" pattern="0"/>"></span>%
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="causes-info">
+											<strong>헌혈증</strong> ${mainboard.blood_present} / <span
+												class="theme_color">${mainboard.goal_blood}</span> &nbsp;<strong>마감날짜
+												: </strong><span class="theme_color"> ${mainboard.goal_date}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+
 			</div>
 		</section>
 		<!--End Causes Section-->
 
 
 		<!--Testimonial Section-->
-		<section class="testimonial-section">
-			<div class="auto-container">
-				<h2>Testimonials</h2>
-				<div class="testimonial-outer">
+		<!-- <!-- <section class="testimonial-section">
+         <div class="auto-container">
+            <h2>Testimonials</h2>
+            <div class="testimonial-outer">
 
-					<!--Client Testimonial Carousel-->
-					<div class="client-testimonial-carousel owl-carousel owl-theme">
+               Client Testimonial Carousel
+               <div class="client-testimonial-carousel owl-carousel owl-theme">
 
-						<!--Testimonial Block One-->
-						<div class="testimonial-block-one">
-							<div class="inner-box">
-								<div class="text">Aristotle maintained the sharp distinct
-									between science and the practical knowledge of artisans,
-									treating theoretical speculation as the highest type of human
-									activity, practical thinking about good living as something
-									less lofty, and the knowledge</div>
+                  Testimonial Block One
+                  <div class="testimonial-block-one">
+                     <div class="inner-box">
+                        <div class="text">Aristotle maintained the sharp distinct
+                           between science and the practical knowledge of artisans,
+                           treating theoretical speculation as the highest type of human
+                           activity, practical thinking about good living as something
+                           less lofty, and the knowledge</div>
+                     </div>
+                  </div>
+
+                  Testimonial Block One
+                  <div class="testimonial-block-one">
+                     <div class="inner-box">
+                        <div class="text">Aristotle maintained the sharp distinct
+                           between science and the practical knowledge of artisans,
+                           treating theoretical speculation as the highest type of human
+                           activity, practical thinking about good living as something
+                           less lofty, and the knowledge</div>
+                     </div>
+                  </div>
+               </div>
+
+               Product Thumbs Carousel
+               <div class="client-thumb-outer">
+                  <div class="client-thumbs-carousel owl-carousel owl-theme">
+                     <div class="thumb-item">
+                        <figure class="thumb-box">
+                           <img src="images/resource/author-2.jpg" alt="">
+                        </figure>
+                        <div class="thumb-content">
+                           <h3>Muhibbur Rashid</h3>
+                           <div class="designation">Designer Google</div>
+                        </div>
+                     </div>
+                     <div class="thumb-item">
+                        <figure class="thumb-box">
+                           <img src="images/resource/author-3.jpg" alt="">
+                        </figure>
+                        <div class="thumb-content">
+                           <h3>Muhibbur Rashid</h3>
+                           <div class="designation">Designer Google</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+      </section> -->
+		-->
+		<!--End Testimonial Section-->
+
+
+		<footer class="main-footer">
+			<!--Footer Bottom-->
+			<div class="footer-bottom">
+				<div class="auto-container">
+					<div class="row clearfix">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="copyright">
+								All Right Researved <a href="#">Huminity</a> &copy; 2017
 							</div>
 						</div>
-
-						<!--Testimonial Block One-->
-						<div class="testimonial-block-one">
-							<div class="inner-box">
-								<div class="text">Aristotle maintained the sharp distinct
-									between science and the practical knowledge of artisans,
-									treating theoretical speculation as the highest type of human
-									activity, practical thinking about good living as something
-									less lofty, and the knowledge</div>
-							</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<ul class="footer-nav">
+								<li><a href="#">Home</a></li>
+								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">FAQ's</a></li>
+							</ul>
 						</div>
 					</div>
-
-					<!--Product Thumbs Carousel-->
-					<div class="client-thumb-outer">
-						<div class="client-thumbs-carousel owl-carousel owl-theme">
-							<div class="thumb-item">
-								<figure class="thumb-box">
-									<img src="images/resource/author-2.jpg" alt="">
-								</figure>
-								<div class="thumb-content">
-									<h3>Muhibbur Rashid</h3>
-									<div class="designation">Designer Google</div>
-								</div>
-							</div>
-							<div class="thumb-item">
-								<figure class="thumb-box">
-									<img src="images/resource/author-3.jpg" alt="">
-								</figure>
-								<div class="thumb-content">
-									<h3>Muhibbur Rashid</h3>
-									<div class="designation">Designer Google</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
 				</div>
 			</div>
-		</section>
-		<!--End Testimonial Section-->
-		
-		
-	<footer class="main-footer">	
-		  <!--Footer Bottom-->
-        <div class="footer-bottom">
-        	<div class="auto-container">
-            	<div class="row clearfix">
-                	<div class="col-md-6 col-sm-6 col-xs-12">
-                    	<div class="copyright">All Right Researved <a href="#">Huminity</a> &copy; 2017</div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    	<ul class="footer-nav">
-                        	<li><a href="#">Home</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">FAQ's</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>    
-		
-	
+		</footer>
+
+
 	</div>
 	<!--End pagewrapper-->
 
@@ -339,6 +358,6 @@
 	<script src="js/wow.js"></script>
 	<script src="js/script.js"></script>
 	<!-- <script src="js/color-settings.js"></script> -->
-	
+
 </body>
 </html>
