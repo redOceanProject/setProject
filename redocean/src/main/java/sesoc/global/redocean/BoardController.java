@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -100,11 +101,22 @@ public class BoardController {
 
 		// 모델에 글과 네비 담기
 		model.addAttribute("board", board);
+		
+		//글의 present와 goal 찾아오기
+		int goal = board.getGoal_blood();
+		int present = board.getBlood_present();
+		System.out.println("present: "+present+"goal: "+goal);
+		if (goal==present) {
+			int i =mapper.change(boardnum);
+			System.out.println(i);
+		}
+		
+		
 		return "Board/boardDetail";
 	}
-
+	
 	// 헌혈증 수량 완성
-	@RequestMapping("/change")
+	@RequestMapping(value = "/change", method = RequestMethod.POST)
 	public String change(int boardnum) {
 		// 헌혈증 남은 갯수는 클라단에서 처리
 		// 여기 오는 순간 이미 헌혈증 개수는 꽉 찬걸로 확인됨
@@ -319,11 +331,12 @@ public class BoardController {
 		ArrayList<String> list = map.selectBoardnum(email);
 		System.out.println("헌혈증에 있는 글 넘버:"+list);
 
-		// 포문에서 돌려서 글번호 뽑아내 맵에다 담기
+		// 포문에서 돌려서 글번호 뽑아내 리스트에다 담기
 		mapper = sqlsession.getMapper(BoardDao.class);
 		ArrayList<Mainboard> boardlist = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
-			boardlist = mapper.selectboardlist(list.get(i));
+			Mainboard main = mapper.selectboardlist(list.get(i));
+			boardlist.add(main);
 		}
 		System.out.println("글내용:"+boardlist);
 		// 모델에 담아 보냄

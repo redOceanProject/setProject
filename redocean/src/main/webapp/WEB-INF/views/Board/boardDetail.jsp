@@ -171,20 +171,34 @@ function sendSlcBdc() {
       type: 'post',
       data: {   valueArrTest: test, toEmail : toEmail, boardnum : boardnum},
       //dataType: 'String', // 이거때문에 sucksass로 안 넘어가고 error로 넘어가던 거시여따
-      success : function(present) {
+      success : function(result) {
+    	  var present = '${board.blood_present}';
+    	  var goal = '${board.goal_blood}';
+    	  if (present==goal) {
+    		  
+    	  }    	  
+    	  
+    	  window.location.reload(true);
+    	  
+      }
+    	  
+    	  
+    	  /* function(present) {
                         var present = JSON.stringify(present);
                         var goal = '${board.goal_blood}';
+                        console.log(present);
+                        console.log(goal);
                         if (present==goal) {
                            $.ajax({
                               url : 'change',
-                              type : 'GET',
+                              type : 'post',
                               success : function(msg){
                                  alert('기부 완료되었습니다. 감사합니다.');
                                  
                               }
                            });
                         }
-                     }
+                     } */
                      
       ,
       error : 

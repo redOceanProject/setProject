@@ -9,7 +9,7 @@
 <title>Huminity HTML Template | Donate</title>
 <!-- Stylesheets -->
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="css/style4.css" rel="stylesheet">
 <link href="css/responsive.css" rel="stylesheet">
 
 <!--Add Theme Color File To Change Template Color Scheme / Color Scheme Files are Located in root/css/color-themes/ folder-->
@@ -107,7 +107,7 @@
 											<div id="all" class="tab-pane fade in active">
 												<div class="bcSector" style="padding-top: 30px;">
 													<c:forEach var="myList" items="${boardlist}">
-            											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+            											<div class="causes-block col-md-6 col-sm-4 col-xs-4">
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
@@ -139,7 +139,7 @@
 												<div class="bcSector" style="padding-top: 30px;">
 													<c:forEach var="myList" items="${boardlist}">
 													<c:if test="${myList.blood_present != myList.goal_blood}">
-            											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+            											<div class="causes-block col-md-6 col-sm-4 col-xs-4">
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
@@ -173,7 +173,7 @@
 												<div class="bcSector" style="padding-top: 30px;">
 													<c:forEach var="myList" items="${boardlist}">
 													<c:if test="${myList.blood_present == myList.goal_blood}">
-            											<div class="causes-block col-md-4 col-sm-6 col-xs-12">
+            											<div class="causes-block col-md-6 col-sm-4 col-xs-4">
                 											<div class="inner-box">
                     											<div class="image">
 																	<a href="boardDetail?boardnum=${myList.boardnum}"><img src="download?boardnum=${myList.boardnum}"/></a><!-- 이미지 -->
