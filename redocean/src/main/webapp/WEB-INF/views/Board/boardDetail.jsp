@@ -357,8 +357,6 @@ function sendSlcBdc() {
                             </div>
                             <ul class="count">
                                <li>
-                                  <span class="icon fa fa-comment-o"></span>13&nbsp;&nbsp;
-                                   <span class="icon fa fa-heart-o"></span>128&nbsp;&nbsp;
                                    <c:if test="${email != null}">
                                       <a href="boardUpdate?boardnum=${board.boardnum}"><span class="icon fa fa-pencil"></span></a>&nbsp;&nbsp;
                                       <a href="boardDelete?boardnum=${board.boardnum}"><span class="icon fa fa-trash-o"></span></a>
