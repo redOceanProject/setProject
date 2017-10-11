@@ -318,7 +318,7 @@ function sendSlcBdc() {
       <c:if test="${board.blood_present == board.goal_blood}">
         <section class="title-section">
         	<div class="auto-container">
-            	<div class="text">성원에 힙입어<span class="theme_color">목표 헌혈증 도달</span>하였습니다.</div>
+            	<div class="text">당신의 나눔에 힘입어<span class="theme_color">목표 헌혈증에 도달</span>하였습니다.</div>
             </div>
         </section>
         </c:if>

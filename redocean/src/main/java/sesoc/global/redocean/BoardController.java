@@ -355,8 +355,9 @@ public class BoardController {
 		String[] aa; 
 		String bb; 
 		
+		System.out.println(boardlist);
 		for(Mainboard board : boardlist){
-			
+			System.out.println(board);
 			bb = board.getContent(); //글자수
 			int bbb = bb.length();
 			
